@@ -13,13 +13,11 @@ export interface IBookmark {
 
 const bookmarkSchema = new mongoose.Schema<IBookmark>({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     required: true,
   },
   courseId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Course',
+    type: String,
     required: true,
   },
   type: {

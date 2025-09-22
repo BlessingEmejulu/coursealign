@@ -21,13 +21,11 @@ export interface IChat {
 
 const chatSchema = new mongoose.Schema<IChat>({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     required: true,
   },
   courseId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Course',
+    type: String,
     required: true,
   },
   sessionId: {
