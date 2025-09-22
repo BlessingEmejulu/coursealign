@@ -115,11 +115,11 @@ export default function PracticeExamPage() {
                   In Development
                 </span>
                 <span className="flex items-center">
-                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
                   Course Outline Ready
                 </span>
                 <span className="flex items-center">
-                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                  <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
                   AI Chat Available
                 </span>
               </div>
