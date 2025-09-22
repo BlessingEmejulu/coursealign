@@ -1,237 +1,196 @@
+'use client'
+
 import Link from 'next/link'
-import { BookOpen, MessageCircle, FileText, Star, Users, Zap } from 'lucide-react'
+import { Search, Menu, BookOpen, MessageCircle, Bookmark, Settings } from 'lucide-react'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-      {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md shadow-sm border-b sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-white" />
-              </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                CourseAlign
-              </h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/course-outline" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Courses
-              </Link>
-              <Link href="/chat" className="text-gray-700 hover:text-blue-600 transition-colors">
-                AI Tutor
-              </Link>
-              <Link href="/practice-exam" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Practice
-              </Link>
-              <Link href="/bookmarks" className="btn-primary">
-                Get Started
-              </Link>
+    <div className="min-h-screen bg-gray-50">
+      {/* Mobile-First Header */}
+      <header className="bg-white shadow-sm">
+        <div className="max-w-sm mx-auto lg:max-w-4xl px-4 py-4">
+          <div className="flex items-center justify-between">
+            {/* Hamburger Menu */}
+            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <Menu className="w-6 h-6 text-gray-700" />
+            </button>
+            
+            {/* Home Title */}
+            <h1 className="text-xl font-semibold text-gray-900">Home</h1>
+            
+            {/* Profile Avatar */}
+            <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-white" />
             </div>
           </div>
         </div>
-      </nav>
+      </header>
 
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Hi <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Blessing</span>! 👋
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Welcome to CourseAlign - Your intelligent learning companion. Access course outlines, 
-            chat with AI tutors, and practice exams all in one place.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/course-outline" className="btn-primary text-lg px-8 py-3">
-              Browse Courses
+      {/* Main Content */}
+      <main className="max-w-sm mx-auto lg:max-w-4xl px-4 py-6 space-y-6">
+        {/* Greeting */}
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Hi Blessing!</h2>
+          
+          {/* Search Bar */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search"
+              className="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-green-500 focus:bg-white transition-all"
+            />
+          </div>
+        </div>
+
+        {/* Welcome Card */}
+        <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-2xl p-6 border-2 border-green-200">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Welcome!</h3>
+              <p className="text-gray-700 text-sm leading-relaxed">
+                Get ready to achieve your academic goals.
+              </p>
+            </div>
+            
+            {/* Illustration Area */}
+            <div className="w-24 h-24 ml-4 bg-green-200 rounded-xl flex items-center justify-center">
+              <div className="relative">
+                {/* Simple illustration replacement */}
+                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
+                  <BookOpen className="w-8 h-8 text-white" />
+                </div>
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center">
+                  <span className="text-white text-xs">✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Access Section */}
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Access</h3>
+          
+          <div className="grid grid-cols-2 gap-4">
+            {/* Course Outline */}
+            <Link href="/course-outline">
+              <div className="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all hover:shadow-md group">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-green-200 transition-colors">
+                  <BookOpen className="w-6 h-6 text-green-600" />
+                </div>
+                <h4 className="font-semibold text-gray-900 text-center">Course Outline</h4>
+              </div>
             </Link>
-            <Link href="/chat" className="btn-secondary text-lg px-8 py-3">
-              Start AI Chat
+
+            {/* Chat With AI */}
+            <Link href="/chat">
+              <div className="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all hover:shadow-md group">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-green-200 transition-colors">
+                  <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">AI</span>
+                  </div>
+                </div>
+                <h4 className="font-semibold text-gray-900 text-center">Chat With AI</h4>
+              </div>
+            </Link>
+
+            {/* Bookmarks */}
+            <Link href="/bookmarks">
+              <div className="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all hover:shadow-md group">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-green-200 transition-colors">
+                  <Bookmark className="w-6 h-6 text-green-600" />
+                </div>
+                <h4 className="font-semibold text-gray-900 text-center">Bookmarks</h4>
+              </div>
+            </Link>
+
+            {/* Practice Exam */}
+            <Link href="/practice-exam">
+              <div className="bg-white rounded-2xl p-6 border-2 border-green-200 hover:border-green-300 transition-all hover:shadow-md group">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-green-200 transition-colors">
+                  <Settings className="w-6 h-6 text-green-600" />
+                </div>
+                <h4 className="font-semibold text-gray-900 text-center">Practice Exam</h4>
+              </div>
             </Link>
           </div>
         </div>
-      </section>
 
-      {/* Quick Access Cards */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-          Quick Access
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Link href="/course-outline" className="group">
-            <div className="card hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-l-4 border-blue-500">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <BookOpen className="w-6 h-6 text-blue-600" />
+        {/* Additional Content for Desktop */}
+        <div className="hidden lg:block mt-12">
+          {/* Recent Activity */}
+          <div className="bg-white rounded-2xl p-6 border border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl">
+                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 text-blue-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">Course Outlines</h3>
-              </div>
-              <p className="text-gray-600">
-                Browse courses by level and semester. Access detailed course outlines and materials.
-              </p>
-            </div>
-          </Link>
-
-          <Link href="/chat" className="group">
-            <div className="card hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-l-4 border-green-500">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <MessageCircle className="w-6 h-6 text-green-600" />
+                <div>
+                  <p className="font-medium text-gray-900">Computer Science 101</p>
+                  <p className="text-sm text-gray-500">Viewed course outline</p>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">AI Tutor</h3>
               </div>
-              <p className="text-gray-600">
-                Chat with Gemini-powered AI to discuss course topics and get instant explanations.
-              </p>
-            </div>
-          </Link>
-
-          <Link href="/practice-exam" className="group">
-            <div className="card hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-l-4 border-purple-500">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <FileText className="w-6 h-6 text-purple-600" />
+              <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl">
+                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">Practice Exams</h3>
-              </div>
-              <p className="text-gray-600">
-                Take AI-generated practice tests and get instant feedback on your performance.
-              </p>
-            </div>
-          </Link>
-
-          <Link href="/bookmarks" className="group">
-            <div className="card hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-l-4 border-orange-500">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                  <Star className="w-6 h-6 text-orange-600" />
+                <div>
+                  <p className="font-medium text-gray-900">AI Chat Session</p>
+                  <p className="text-sm text-gray-500">Discussed algorithms</p>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">Bookmarks</h3>
               </div>
-              <p className="text-gray-600">
-                Save your favorite courses and topics for quick access later.
-              </p>
             </div>
-          </Link>
+          </div>
         </div>
-      </section>
+      </main>
 
-      {/* Features Section */}
-      <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Choose CourseAlign?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Built specifically for students who want to excel in their academic journey
-            </p>
+      {/* Desktop Sidebar Navigation (hidden on mobile) */}
+      <div className="hidden lg:block fixed left-0 top-0 h-full w-64 bg-white shadow-lg z-40">
+        <div className="p-6">
+          <div className="flex items-center space-x-3 mb-8">
+            <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-green-600 rounded-xl flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="text-xl font-bold text-gray-900">CourseAlign</h1>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-8 h-8 text-white" />
+          <nav className="space-y-2">
+            <Link href="/" className="flex items-center space-x-3 p-3 bg-green-50 text-green-700 rounded-xl">
+              <div className="w-6 h-6 bg-green-100 rounded-lg flex items-center justify-center">
+                <span className="w-3 h-3 bg-green-600 rounded"></span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">AI-Powered Learning</h3>
-              <p className="text-gray-600">
-                Get personalized explanations and practice questions generated by advanced AI
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Organized Content</h3>
-              <p className="text-gray-600">
-                Access all your course materials in one organized, easy-to-navigate platform
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Star className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Track Progress</h3>
-              <p className="text-gray-600">
-                Monitor your learning progress and get insights to improve your performance
-              </p>
-            </div>
-          </div>
+              <span className="font-medium">Home</span>
+            </Link>
+            <Link href="/course-outline" className="flex items-center space-x-3 p-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors">
+              <BookOpen className="w-6 h-6" />
+              <span>Course Outline</span>
+            </Link>
+            <Link href="/chat" className="flex items-center space-x-3 p-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors">
+              <MessageCircle className="w-6 h-6" />
+              <span>Chat With AI</span>
+            </Link>
+            <Link href="/bookmarks" className="flex items-center space-x-3 p-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors">
+              <Bookmark className="w-6 h-6" />
+              <span>Bookmarks</span>
+            </Link>
+            <Link href="/practice-exam" className="flex items-center space-x-3 p-3 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors">
+              <Settings className="w-6 h-6" />
+              <span>Practice Exam</span>
+            </Link>
+          </nav>
         </div>
-      </section>
+      </div>
 
-      {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-600 py-16">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to Transform Your Learning Experience?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Join thousands of students who are already using CourseAlign to excel in their studies
-          </p>
-          <Link href="/course-outline" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold text-lg transition-colors">
-            Start Learning Today
-          </Link>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                  <BookOpen className="w-5 h-5 text-white" />
-                </div>
-                <h3 className="text-xl font-bold">CourseAlign</h3>
-              </div>
-              <p className="text-gray-400">
-                Your intelligent learning companion for academic success.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Features</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/course-outline" className="hover:text-white transition-colors">Course Outlines</Link></li>
-                <li><Link href="/chat" className="hover:text-white transition-colors">AI Tutor</Link></li>
-                <li><Link href="/practice-exam" className="hover:text-white transition-colors">Practice Exams</Link></li>
-                <li><Link href="/bookmarks" className="hover:text-white transition-colors">Bookmarks</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Connect</h4>
-              <p className="text-gray-400 mb-4">
-                Stay updated with the latest features and tips
-              </p>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Twitter</a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">GitHub</a>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 CourseAlign. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      {/* Adjust main content margin for desktop sidebar */}
+      <style jsx>{`
+        @media (min-width: 1024px) {
+          main {
+            margin-left: 16rem;
+          }
+        }
+      `}</style>
     </div>
   );
 }
