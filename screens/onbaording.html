@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <title>CourseAlign - Get Started</title>
+</head>
+<body>
+    <main class="onboarding-screen">
+        <div class="onboarding-container">
+            <!-- Left Column: Image Section -->
+            <div class="image-column">
+                <div class="image-container">
+                    <img src="../assets/images/students.png" alt="Students studying together" class="study-illustration">
+                </div>
+            </div>
+
+            <!-- Right Column: Content & Actions -->
+            <div class="content-column">
+                <!-- Content Section -->
+                <div class="content-section">
+                    <div class="text-content">
+                        <h1 class="app-title">CourseAlign</h1>
+                        <p class="app-description">
+                            Access a vast library of study resources, and leverage AI-powered tools to enhance your learning journey.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-section">
+                    <button class="btn btn-primary" onclick="navigateToLogin()">
+                        Login
+                    </button>
+                    <button class="btn btn-secondary" onclick="navigateToSignup()">
+                        Create an account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function navigateToLogin() {
+            window.location.href = 'login.html';
+        }
+        
+        function navigateToSignup() {
+            window.location.href = 'signup.html';
+        }
+    </script>
+</body>
+</html>
+        
