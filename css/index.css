@@ -393,7 +393,6 @@ h1, h2, h3{
     justify-content: center;
     align-items: center;
     padding: 40px;
-    height: auto;
     background: linear-gradient(135deg, rgba(0, 151, 220, 0.05) 0%, rgba(0, 151, 220, 0.02) 100%);
 }
 
@@ -492,56 +491,69 @@ h1, h2, h3{
     border-color: var(--primary-color);
 }
 
-/* Clean Responsive Design for Row Layout */
+/* Responsive Design - Column layout for mobile/tablet */
 @media (max-width: 768px) {
-    .onboarding-screen {
-        padding: 15px;
-    }
-    
     .onboarding-container {
-        max-width: 100%;
-        border-radius: 15px;
+        max-width: 400px;
+        flex-direction: column;
+        min-height: auto;
     }
     
-    .image-row {
-        padding: 25px 15px;
+    .image-column {
+        flex: none;
+        padding: 30px 20px;
+        background: white;
+        min-height: auto;
     }
     
     .image-container {
-        height: 220px;
+        height: 250px;
+        min-height: auto;
     }
     
-    .content-row {
-        padding: 15px 25px;
+    .study-illustration {
+        width: auto;
+        max-width: 100%;
+        min-height: auto;
+    }
+    
+    .content-column {
+        flex: none;
+        padding: 20px 30px 40px;
+        text-align: center;
+    }
+    
+    .content-section {
+        margin-bottom: 30px;
+        text-align: center;
     }
     
     .app-title {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
+        text-align: center;
     }
     
     .app-description {
-        font-size: 1rem;
+        font-size: 1.1rem;
+        text-align: center;
     }
     
-    .action-row {
-        padding: 15px 25px 35px;
+    .action-section {
+        max-width: 100%;
     }
 }
 
 @media (max-width: 480px) {
     .onboarding-screen {
-        padding: 10px;
+        padding: 15px;
     }
     
-    .status-row {
-        padding: 12px 15px;
+    .onboarding-container {
+        border-radius: 15px;
+        max-width: 100%;
     }
     
-    .time {
-        font-size: 14px;
-    }
-    
-    .image-row {
+    .image-column {
         padding: 20px 15px;
     }
     
@@ -549,8 +561,8 @@ h1, h2, h3{
         height: 200px;
     }
     
-    .content-row {
-        padding: 15px 20px;
+    .content-column {
+        padding: 15px 20px 30px;
     }
     
     .app-title {
@@ -563,8 +575,7 @@ h1, h2, h3{
         line-height: 1.5;
     }
     
-    .action-row {
-        padding: 15px 20px 30px;
+    .action-section {
         gap: 12px;
     }
     
@@ -591,38 +602,42 @@ h1, h2, h3{
         font-size: 0.9rem;
     }
     
-    .content-row {
-        padding: 12px 18px;
-    }
-    
-    .action-row {
+    .content-column {
         padding: 12px 18px 25px;
     }
 }
 
-/* Large screen optimizations */
+/* Large desktop optimizations */
 @media (min-width: 1024px) {
     .onboarding-container {
-        max-width: 450px;
+        max-width: 1200px;
+        min-height: 700px;
+    }
+    
+    .image-column {
+        padding: 60px;
+        min-height: 700px;
     }
     
     .image-container {
-        height: 280px;
+        min-height: 500px;
+    }
+    
+    .study-illustration {
+        width: 90%;
+        max-width: 600px;
+        min-height: 450px;
+    }
+    
+    .content-column {
+        padding: 80px 60px;
     }
     
     .app-title {
-        font-size: 2.8rem;
+        font-size: 3.5rem;
     }
     
     .app-description {
-        font-size: 1.2rem;
-    }
-    
-    .content-row {
-        padding: 25px 35px;
-    }
-    
-    .action-row {
-        padding: 25px 35px 45px;
+        font-size: 1.3rem;
     }
 }
