@@ -1,0 +1,386 @@
+[
+  {
+    "title": "Introduction to Computer 1",
+    "code": "CIS 101",
+    "unit": 3,
+    "level": 100,
+    "course_outline": "History of Computer Science, Computer Hardware, Computer Software, Algorithm, Database and Information Systems, Internet, Network, Microsoft Office Applications, Computer Operations, Ethical Issues, Number Systems, Telecommunications. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the programming constructs taught in the class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming language taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Introduction to Computer II",
+    "code": "CIS 102",
+    "unit": 2,
+    "level": 100,
+    "course_outline": "Number Systems - binary, octal, decimal and hexadecimal; Integer and Floating - Point Arithmetic; Problem Solving and Algorithm, Flowcharts, Problem Solving Strategies, Role of Algorithm in Problem Solving Process, Implementations Strategies, Concepts and Properties of Algorithms. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the programming constructs taught in class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Programming Logic with C# Principles",
+    "code": "CIS 104",
+    "unit": 2,
+    "level": 100,
+    "course_outline": "Introduction to Computer programming, Elementary Programming Techniques, Computer Programming Statement, Symbolic names, Array Statements, Expressions, Programming Syntax, Uses of Programming Languages, Programming Structures, Principles of Good Programming, and Programming Languages Applications. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the programming constructs taught in the class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming language taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Computer Applications and Practice",
+    "code": "CIS 192",
+    "unit": 2,
+    "level": 100,
+    "course_outline": "Information Technology in the Work Place, Computer Application in Society, Electronic Commerce. Electronic Learning, Graphics Software, Multimedia Software, Web Site Fundamentals, Computer Communications, Applications of web Technologies, Business Software, Microsoft Applications, IT Project Management, Overview of Application Packages, Modes of Acquisition, Criteria for Package Acceptability, Application Software Family, A Typical Word Processing A Typical Database Management System Package, Spreadsheet Application and Desktop Publishing Application. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of programming constructs taught in the class , before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming language taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Introduction to Computer Programming I",
+    "code": "CIS 201",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Introduction to problem solving Methods and Algorithm, Development, Designing, Coding, Debugging, Editing and Documenting Programmes using techniques of a good Programming Language style,Computer Organization, Programming Language and Programming Algorithm Development. A widely used programming language e.g C ++ or Java should be used in teaching the above.",
+    "semester": null
+  },
+  {
+    "title": "System Programming with C",
+    "code": "CIS 267",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Principles of a good Programming. Introduction to C. Data types, constants and variables. Types, operators and expressions. Branching, function, Loops. Arrays and strings. Pointer, Data structures. Input and output, control statement, Testing, Modularization. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the programming constructs taught in the class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming language taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Compiler Construction",
+    "code": "CIS 221",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Introduction to compilers, Automatic Code Generation Tools,Parsing and Parsing Techniques, Lexical Analysis, Syntax Analysis, Semantic Analysis, Type Checking, Runtime Environment, Code Generation, Code Optimization, Code Review, Error Detection and Recovery.",
+    "semester": null
+  },
+  {
+    "title": "Computer, Ethics and Law",
+    "code": "CIS 208",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Introduction to Computer security. User authentication. Access control. Malicious software. File and database security. Software security. Network security. Cryptography. Ethics, privacy and professional issues. Nigeria computer and IT Laws. International Computer and IT Laws.",
+    "semester": null
+  },
+  {
+    "title": "Object Oriented Programming with C++ & VB",
+    "code": "CIS 261",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Introduction, Object Oriented Concepts, Terminology and Languages. Variable, Statements, Conditional Statement, Errors and Types of Errors, Data Types, Functions and programme Design, File Input and Output, Classes and Objects, Inheritance, Polymorphism, Exception Handling, Matrices, Principles of Good Programming, Structured Programming Concepts, Debugging and Testing, String Processing, Internal Searching and Storing, C++ and Visual Basic Programming. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the programming constructs taught in the class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming language taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Foundations of Sequential System",
+    "code": "CIS 218",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "The relationships between H/L languages and the Computer Architecture that underlies their implementation: basic machine architecture, specification and translation of P/L Block Structured Languages, parameter passing mechanisms.",
+    "semester": null
+  },
+  {
+    "title": "Web Design and Development",
+    "code": "CIS 262",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Introduction to Internet Fundamentals, Introduction to Html, Html Syntax, Introduction to XHTML Introduction to JavaScript, Designing Dynamic, We Content, Rich Internet Applications, Web Page Layout, Introduction to CSS, Designing for Usability Business Side of Web Development, Web Hosting Domain Name, Site Management. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the programming constructs taught in the class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming language taught and increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Object Programming II with Java & NET",
+    "code": "CIS 264",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Programming Concepts, Object Oriented Paradigm, Overview of Java, Classes and Objects, Variables, Objects and Methods,Java APL, Polymorphism and Inheritance, Exception Handling, Reusable Libraries, Constructors, Reusable Libraries. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the programming constructs taught in the class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming language taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Introduction to Digital Design",
+    "code": "CIS 244",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Internal Structure of Digital Computers; Electronic Logic Devices, Boolean algebra Theory and Boolean Logic Gates, Gate Level Minimization, Multi-level NAND/NOR Circuits, k-mapping, combinational Logic Gate Design, Adder/subtractor Circuits, Registers, integrated circuits and principles of digital hardware Design, timing problems, addition,subtraction, multiplication and principles and organization. IC Semiconductor memories, magnetic disc, memory, data path and internal control principles, input, output system, I/O Buses, I/O Interface, System Control Principles, Microprocessors and Microcomputers.",
+    "semester": null
+  },
+  {
+    "title": "Scientific programming with python",
+    "code": "CIS 266",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Introduction to python, python data types. Variables. Operators. Arithmetic expressions. Code branching. Conditional Statement. Loops. Functions. Strings. Arrays. Scientific computing case studies. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the programming constructs taught in the class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming language taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Computer Architecture",
+    "code": "CIS 242",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Introduction to Computer Architecture, Instruction Set Architecture And Design, Assembly Language Programming, Computer Arithmetic, Processor Design, Memory Design, Input/output Design, Pipelining, Multiprocessors, Reduced Instruction Set Architecture, Complex Instruction Set Architecture, Parallel Machines.",
+    "semester": null
+  },
+  {
+    "title": "Operating System",
+    "code": "CIS 231",
+    "unit": 2,
+    "level": 200,
+    "course_outline": "Introduction to Operating Systems, Functions Adder Facilities. Types of Operating System, Process and Processors Concurrency, Problems, Semaphores, Concurrent Programming. Necessary Hardware Facilities, Interrupt, Mechanism Real Time Clock Privileged Instructions, Operating System Structure Job Control Language. Virtual Memory Management, Space, Address Input/output procedures, I/O device characteristic, Device measurement, technique Multi-Programming and Multi-Processing Systems. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the programming constructs taught in the class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming language taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "PC Maintenance and Repairs",
+    "code": "CIS 371",
+    "unit": 2,
+    "level": 300,
+    "course_outline": "PC Assembly Diagnosis and Repair, Familiarity with Systems and Components, Understanding the Relationship between Components, Selection of Components, Optimization and Upgrading, Enhancement Diagnosis and Repair, Building Computer Systems from Component Parts.",
+    "semester": null
+  },
+  {
+    "title": "Data structures and Algorithms",
+    "code": "CIS 312",
+    "unit": 2,
+    "level": 300,
+    "course_outline": "The Concept of Bits, Bytes, Words, Linear Structures and List Structures. Array Tree Structures, Sets and Relations High Level Language Data Types and Data Handling Facilities, Records, Strings and Strings Processing, Directed Graphs and Matrices. Finite State machines, Equivalence Relations on Graphs, Algebraic Systems, Data Representation in Memory, Stack and Heap Allocation, Queues, Trees. Searching, Complexity, Implementation Strategies for Queues, Stacks, Trees. Sorting, Run Time Storage Management, Pointers, Dynamic Algorithms,Hard or Intractable Problems, Case Studies, Games, Recursion.",
+    "semester": null
+  },
+  {
+    "title": "Systems Analysis and Design",
+    "code": "CIS 321",
+    "unit": 2,
+    "level": 300,
+    "course_outline": "System Analysis Concepts, Understanding and Modeling Organizational System, Information Requirements Analysis, Information Gathering Methods and Techniques, Analysis Tools, The System Development Life Cycle, Process Modeling, Systems Development Methodologies, Project Management, Data Dictionaries, Analysis Tools, Documentation.",
+    "semester": null
+  },
+  {
+    "title": "Database Design and Management",
+    "code": "CIS 323",
+    "unit": 2,
+    "level": 300,
+    "course_outline": "Introduction to Database and DBMS, Data Modeling, Database Modeling, Normalization and Relational Theory, DBMS Application Architectures, Object-Oriented & Object- Relational DBMS, Database Queries and Reports, Text Database & Information Retrieval OLTP Concurrency Control, Logging, Recovery, Online Databases, DBMS Security & Administration, Data Warehousing and Data Mining. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the DBMS constructs taught in the class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the database management system taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Automata Theory, Formal Languages and Computation",
+    "code": "CIS 313",
+    "unit": 2,
+    "level": 300,
+    "course_outline": "Introduction to Formal Languages and Computation, Finite State Machines and Finite Automata, Deterministic Finite Automata and Non-Deterministic Finite Automata,Regular Expressions and Regular Languages, Context Free Language and Non-Context Free Languages, Pumping Lemma, Parse Trees, Push Down Automata, Turing Machines, Church Turing Thesis, Universal Turing Machine, Intractable Problems.",
+    "semester": null
+  },
+  {
+    "title": "Operations Research",
+    "code": "CIS 361",
+    "unit": 2,
+    "level": 300,
+    "course_outline": "Phases of Operations Research study, Classification of Operations, Research Models. Deterministic Models in Operations. Linear, Nonlinear Convex Optimization Problems, Dynamic Programming. Linear models and their Dual Problems. Dual Theorem simplex Method. Transpiration and Assignment Problems, Dynamic Programming, Integer programming and Nonlinear programming Metaheuristics, Game Theory and Decision Analysis, Markov Chains and Markov Decision processes, Network Optimization Models and Inventory Theory.",
+    "semester": null
+  },
+  {
+    "title": "Research Methodology",
+    "code": "CIS 373",
+    "unit": 2,
+    "level": 300,
+    "course_outline": "The Nature of CS Research, Research Philosophy, Formulation of Aims for A Research Project, Formulation of Scientific Problems and Hypotheses, Selection of Methods For Solving a Scientific Problem. Primary and Secondary Research Approaches, Qualitative and Quantitative Research Methods, Statistical Analysis Research Ethics and Intellectual Copyright. Review of Legal, Ethical, Social And Professional (LSEP) Issues, Literature Searches, Information Gathering, Reading and Understanding Research Papers, Technical Writing, Referencing, Bibliographics, Citations and References, Presentation skills, Written and Oral, Outlining and Structuring Research Papers, the Peer Review Process, Choosing or Proposing A Project, Project Planning, Tools and Techniques for Planning Project Conduct, Time Management, Risk Management, Team Working.",
+    "semester": null
+  },
+  {
+    "title": "Discrete Mathematics",
+    "code": "CIS 315",
+    "unit": 3,
+    "level": 300,
+    "course_outline": "Set Theory: Definition of Sets, equality and Inclusion, operations, Venn diagram. Relations: Definition, graphs, properties of relations. Functions: Definition and types of function, composition of functions, recursively defined functions. Algebraic Structure: Binary composition and it's properties, definition of algebraic structure. Graphs: Graph terminology, types of graph, connected graphs, components of graph, Euler graph. Tree: Definition, types of tree( rooted, binary), properties of trees, binary search tree. A widely used programming language should be used in teaching the above.",
+    "semester": null
+  },
+  {
+    "title": "Computational Methods with Numerical Methods",
+    "code": "CIS 310",
+    "unit": 3,
+    "level": 300,
+    "course_outline": "Application of Numerical Methods and Analysis, Numerical Differentiation, Numerical Integration, Interpolation, Polynomial Approximation, Floating - point arithmetic, Use of Mathematical subroutine, Packages, Error Analysis and Norms, Alternative Methods, Computation of Eigen values and Eigenvectors, Curve Fitting, Ordinary Differential Equations, Created Topics, Numerical Solutions of Boundary Value Problems for Ordinary Differential Equations, Least - squares Solution of Over-determined Systems. A widely used programming language should be used in teaching the above.",
+    "semester": null
+  },
+  {
+    "title": "Computer Science Laboratory I",
+    "code": "CIS 375",
+    "unit": 1,
+    "level": 300,
+    "course_outline": "General Lab Ethics, Hardware, Software, Operating System, Os Commands, Application Packages. At this stage of Computer work the students come into physical contact with the computer itself, Practical sections of the different courses taken within the semester are taken within this course. It's various modes of operations and the different computer devices and introduced practical examples on how to run simple programmes are introduced. This will include the practical parts of the following courses. Database design and management including experience with creation, modification of tables in different DBMS like MS Access, MySQL and Oracle. PC Maintenance and Repair - this includes experiences with troubleshooting, diagnosis and removal and substitution of components. Numerical Methods including experience with programming with MATLAB, Mathematica and GNU octave.",
+    "semester": null
+  },
+  {
+    "title": "Industrial Training",
+    "code": "CIS 372",
+    "unit": 9,
+    "level": 300,
+    "course_outline": "Each student is expected to spend 6 months in a computer unit/firm to work under the supervision of personnel experienced in Computer Science/Information Technology at the end of the third year first semester. The aim of this exercise is to give the students a chance to learn to apply their knowledge in practice and to learn those aspects of the profession, which are not in the programme, but important in practice. A student is expected to submit and defend a report about his/her experience at the end of the training.",
+    "semester": null
+  },
+  {
+    "title": "Entrepreneurship Project",
+    "code": "CIS 400",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Introduction to Entrepreneurial development, Skill Acquisition, Marketing Strategies, Importance of Effective IT Planning, Developing a Robust IT Planning Framework, Strategy Management, Enterprise Architecture Management, Basics of an IT Management Programme, common IT Management Issues, Merit and Demerit of Entrepreneurship, software and hardware Entrepreneurship.",
+    "semester": null
+  },
+  {
+    "title": "Organization of Programming Languages",
+    "code": "CIS 401",
+    "unit": 3,
+    "level": 400,
+    "course_outline": "Language Definition, Structure, Data Types and Structures, Syntax and Semantics, Attribute Grammars and Issues in Language Design, Names, Scopes, and Binding, Types of Control Flow, Subroutines and Control Abstraction, Programming Language Paradigms, Data Abstraction and Object - Oriented Programming (Examples: Java, Smalltalk, and C++),Non-imperative paradigms, Functional Languages (Examples:Scheme, ML, and Haskell) Logic programming (Example:Prolong,) Scripting Languages (Examples:Csh, Python, Ruby, Pen, Tell, etc), Concurrent Programming (Examples:Java, SR, Openmp). Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize on the implementation of the programming constructs taught in the class, before he or she will pass the course. The aim is to inculcate in the students the ability to solve problems related to the programming language taught and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Computer Modeling and Simulation",
+    "code": "CIS 411",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "The Basic Concepts Of Modeling and Simulation Methodology, Queues and Queuing Networks, Stochastic Processes, Markov Processes, Birth - Death Processes, Random Number, Model Classification Monte Carlo Simulation, Discrete-Event Simulation, Continuous System Simulation, Mixed Continuous/Discrete - Event Simulation, Input and Output Analysis:Random Numbers, Generating and Analyzing Random Numbers, Sample Generation, Trace - and - Execution - Driven, Simulation, Point and Interval Estimation, Process-Oriented and Parallel and Components Simulation and Modeling, Queuing Theory.",
+    "semester": null
+  },
+  {
+    "title": "Mobile Application Development",
+    "code": "CIS 453",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Introduction to mobile devices. Introduction to android. The android platform. Android app lifecycle. Android Architecture. Mobile Web Application. Mobile infrastructure. Mobile Application Architecture. Mobile client applications. Mobile client user interface. Mobile app case study 1. Mobile app case study 2.",
+    "semester": null
+  },
+  {
+    "title": "Algorithms and Complexity",
+    "code": "CIS 415",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Algorithm Analysis, Greedy Algorithm, Dynamic Programming, Network Flow, Dynamic Programming, Approximation Algorithm, Search Algorithm, Randomized Algorithm, Graph Algorithm, Recurrences, Heap Sort, Quick Sort, Dijkstra Algorithm.",
+    "semester": null
+  },
+  {
+    "title": "IT Project Management",
+    "code": "CIS 421",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Introduction to Project Management, Project Management Knowledge Areas, Project Selection and Initiation, Project Planning, Project Estimation, Managing Risk, Project Execution, Project Monitoring and Control, And Project Close, Project Management Lifecycle, Alternative Project Management Approaches, Project Portfolio Management, Project Management Software.",
+    "semester": null
+  },
+  {
+    "title": "Software Engineering and Management",
+    "code": "CIS 405",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Software Engineering Process, Requirements Analysis, Object Oriented Paradigm, Software Engineering, Methodology, Software Development Lifestyle, Development Tool, Design Overview, Debugging Tools, Code Optimization, Software Architecture, Software Reuse and Open Source Development, Software Testing.",
+    "semester": null
+  },
+  {
+    "title": "Distributing Computing Systems",
+    "code": "CIS 431",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Introductions, Definitions, Motivation, Communication Mechanisms, Communication Protocols, RPC, RMI, Stream Oriented Communication, Synchronization, Global State, Election, Distributed Mutual Exclusion, Distributed Transactions, Naming, Generic Schemes, DNS, Naming and Localization, Replication and Coherence, Consistency Models and Protocols, Fault Tolerance, Group Communication, Two and Three Phased Commit, Check pointing, Security, Access Control, Key Management, Cryptography, Distributed File System, NFS, Coda, etc.",
+    "semester": null
+  },
+  {
+    "title": "Computer Graphics and Visualization",
+    "code": "CIS 441",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Hardware Aspect, Plotters Microfilm, Plotters Display, Graphic Tablets, Light Pens, Other Graphics Input Aids, Facsimile and it's Problems, Refresh Display, Refresh Huggers, Changing Images, Light Pen Interaction. In Drawing Algorithms, Circle/Ellipse Drawing Algorithms, Triangle and Polygon Pasteurization, 2d Geometrical Transformation, 3d Geometrical Transformations, Viewing in 3d(Orthographic Projection and Perspective Projection),Hidden Surface Elimination Algorithms, Surface Shading, Ray Tracing, Graphics Pipeline(Including Clipping),Texture Mapping.",
+    "semester": null
+  },
+  {
+    "title": "Human Computer Interaction",
+    "code": "CIS 443",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Introduction to the human, the computer and interaction. Interactive system, interaction design, Usability and user experience. Evaluation techniques, interaction type and styles, social interaction, data gathering, user interface, universal design, user support, GUI.",
+    "semester": null
+  },
+  {
+    "title": "Computer Science Laboratory II",
+    "code": "CIS 473",
+    "unit": 1,
+    "level": 400,
+    "course_outline": "General Lab Ethics, Hardware, Software, Operating System, OS Commands, Application Packages. At this stage of computer work the student comes into physical contact with the computer itself, practical Sections of the different courses taken within the semester are taken within this course. It's various modes of operations and the different computer devices are introduced. This will include the practical parts of the following courses - mobile application development, exposure to design of mobile interfaces and small scale mobile apps computer graphics- exposure to different IDE for graphics programming and development like Blender, OPENGL, Computer simulation and modeling the students will be exposed to Practical simulation using appropriate software such as R, ARENA, MATLAB Organization of programming languages - the student will practice programming constructs in different languages taught in class.",
+    "semester": null
+  },
+  {
+    "title": "Computer Performance Evaluation",
+    "code": "CIS 464",
+    "unit": 3,
+    "level": 400,
+    "course_outline": "Overview of Performance Evaluation, Notion of Models and Types of Models, Random Variables and Common Distribution, Measurements, Stochastic Processes, Queuing Models and Network of Queues, Analytical Modeling, Simulation Modeling, Discrete Event Simulation Modeling, Measurement Techniques and Tools, Application in Computer System Using Analytic, Simulation and Hybrid Models, Experimental Design and Analysis, Workload Characterization, Performance Evaluation in Selection Problems, Design Problems and Evaluation of Programme Performance. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize the implementation of the techniques and constructs taught in the class, before he or she will pass the course. The aim is to encourage students to apply techniques taught to solve problems related to the environment and to increase the Entrepreneurial skills of the student.",
+    "semester": null
+  },
+  {
+    "title": "Artificial Intelligence",
+    "code": "CIS 404",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Overview, Intelligent Agents, Artificial Intelligence Programming Techniques, Problem - solving Through Search, Knowledge Representation and Reasoning, Planning, Representing and Reasoning With Uncertain Knowledge, Decision - Making, Machine learning and Knowledge Acquisition, Expert Systems, Sample Applications of AI, Multi Agent Systems.",
+    "semester": null
+  },
+  {
+    "title": "Remote Sensing and GIS",
+    "code": "CIS 424",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Course Objective and Overview, Conceptual Framework of GIS, GIS Structure & Function, Coordinate Systems and GIS Data, Database Design & Development, Function and Structure of Maps, Overview of Public Data Sources, Basic GIS operations, Fundamentals Of Data Visualization, Advanced Querying and Linear Operations on Special Data, Spatial Modeling and Analysis, Data Visualization and Presentation for GIS and GIS modeling, Spatial Interpolation, Error Evaluation and Management, GIS for Decision Making, GIS Organization and Management, GIS Applications. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize the implementation of the techniques and constructs taught in the class, before he or she will pass the course. The aim is to encourage students to apply techniques taught to solve problems related to environment and to increase the Entrepreneurial of the student.",
+    "semester": null
+  },
+  {
+    "title": "Information Systems and Management",
+    "code": "CIS 426",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Introduction to Information Systems, Database and Database Management Systems, Business Intelligence and Organizational Change, Business Modeling, System Analysis, Design and Development, System Audi and Security, ERP, Data Mining and Data Warehouse, Information Law and Policy Computer Ethics and Privacy, System Development, Management Information Systems, Project Management, Knowledge Management.",
+    "semester": null
+  },
+  {
+    "title": "Data Communication and Computer Networks",
+    "code": "CIS 454",
+    "unit": 3,
+    "level": 400,
+    "course_outline": "History of Networking, General Networking Concepts and Categories, Networking Hardware Devices, Interfaces, Data Carriers. Networking Routers Gateways, Hubs, 10 Base 2- 5 Bus Connectors. Cabling Connectors with 10 Base T (UTP)(or Twisted pair cables).10MBps,20MBps,RJ 45 Straight and Crossed Cable, Ethernet Links, Optical Fiber Links, Telephone Links, Radio Links, Satellite Links, Data Switching Principles and Broadcast Techniques. LANs and WANs Network Topography Bus, Tree, Ring, Star Design Consideration, etc . Topography, Internet Working UDP/IP vs Packet Switching. IF' Protocol and it's descendants. TCP/IP, UDP/IP, etc. Address Resolutions, Hardware Address, IF' Address, Domain Names, DNS, Waves, Fourier analysis, Measure of Communication, Channel Characteristics, Transformation Media, Noise and Distortion, Modulation and Demodulation, Multiplexing, TDM, FDM, Parallel and Serial Transmission (Synchronous and Asynchronous).Bus Structures and Loop Systems. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize the implementation of the techniques and constructs taught in the class, before he or she will pass the course. The aim is to encourage students to apply techniques taught to solve problems related to the environment and to increase the Entrepreneurial skills of the students.",
+    "semester": null
+  },
+  {
+    "title": "Data analytics and Data mining",
+    "code": "CIS 428",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Introduction to data analytics and Data mining. Data mining process, data mining techniques, data analytics operating systems, map reduce, Hadoop, hive, distributed analytics, technologies of data analytics and Data mining, data mining and data Warehouse, data ingestion, machine learning, distributed data science. Case studies.",
+    "semester": null
+  },
+  {
+    "title": "Net- Centric Computing and Web Applications",
+    "code": "CIS 412",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Introduction to Net-Centric Computing, Distributed Computing, Distributed System Taxonomy, Wireless Sensors Networks, Grid and Cloud Computing, Mobile Application Design, Mobile Application Development Environment, Wireless Computer, Wireless Communication Technologies, Parallel Computing and Parallel Architecture, Client/Server Computing, Network Security. Practical Section: A student must pass a practical course to be administered in the computer laboratories which will emphasize the implementation of the techniques and mobile constructs taught in the class, before he or she will pass the course. The aim is to encourage students to apply techniques taught to solve problems related to the environment.",
+    "semester": null
+  },
+  {
+    "title": "Computer Science Laboratory III",
+    "code": "CIS 474",
+    "unit": 1,
+    "level": 400,
+    "course_outline": "General Lab Ethics, Hardware, Software, Operating System, OS Commands, Application Packages installation. At this stage of computer work the student comes into physical contact with the computer in the lab itself. Practical sections of the different courses taken within the semester are taken within this course. It's various modes of operations and the different computer devices are introduced. Practical examples on how to run simple programmes are introduced. This will include the practical parts of the following courses: Remote Sensing and GIS the student will acquire experience using different GIS software and location -based systems on mobile devices. Data communication and networks- students will practice configuration of servers and routers and preparation of guilded media of different types. Data analytics and Data mining- the student is exposed to data analytics and mining software like Hadoop, hive and map reduce, practical analytics is carried out with this software. Information System and management - the student develops a simple information system in the lab in the course of this course. Net- Centric Computing and Web Applications - a choice between PHP and asp. Net for dynamic scripting is to be used in the practical Section.",
+    "semester": null
+  },
+  {
+    "title": "Seminar",
+    "code": "CIS 471",
+    "unit": 2,
+    "level": 400,
+    "course_outline": "Each student works on a selected topic, which may include as follows: Data and systems Analysis, Design and Implementation of some Complex Software or Hardware, etc.",
+    "semester": null
+  },
+  {
+    "title": "Project",
+    "code": "CIS 472",
+    "unit": 6,
+    "level": 400,
+    "course_outline": "Each student works on a selected topic, which may include as follows:Data and systems Analysis, Design and Implementation of some Complex Software or Hardware, etc.",
+    "semester": null
+  }
+]

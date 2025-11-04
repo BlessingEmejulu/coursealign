@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <title>CourseAlign - Home</title>
+</head>
+<body>
+    <main class="home-screen">
+        <!-- Mobile Header -->
+        <header class="home-header">
+            <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            
+            <h1 class="home-title">Home</h1>
+            
+            <div class="profile-icon" onclick="openProfile()">
+                <img src="../assets/images/profile-avatar.png" alt="Profile" class="profile-img">
+            </div>
+        </header>
+
+        <!-- Main Content Container -->
+        <div class="home-content">
+            <!-- Greeting Section -->
+            <section class="greeting-section">
+                <h2 class="greeting-text">Hi Blessing!</h2>
+            </section>
+
+            <!-- Search Bar -->
+            <section class="search-section">
+                <div class="search-container">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                        <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <input type="text" placeholder="Search" class="search-input">
+                </div>
+            </section>
+
+            <!-- Welcome Card -->
+            <section class="welcome-section">
+                <div class="welcome-card">
+                    <div class="welcome-content">
+                        <h3 class="welcome-title">Welcome!</h3>
+                        <p class="welcome-description">Get ready to achieve your academic goals.</p>
+                    </div>
+                    <div class="welcome-illustration">
+                        <img src="../assets/images/welcome-student.png" alt="Student studying illustration" class="welcome-img">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Access Section -->
+            <section class="quick-access-section">
+                <h3 class="section-title">Quick Access</h3>
+                <div class="quick-access-grid">
+                    <!-- Get Course Outline -->
+                    <div class="quick-access-item" onclick="navigateTo('course-outline')">
+                        <div class="quick-icon course-icon">
+                            <img src="../assets/icons/course-outline.png" alt="Course Outline" class="quick-icon-img">
+                        </div>
+                        <span class="quick-label">Get Course Outline</span>
+                    </div>
+
+                    <!-- Study with AI -->
+                    <div class="quick-access-item" onclick="navigateTo('ai-chat')">
+                        <div class="quick-icon ai-icon">
+                            <img src="../assets/icons/ai-study.png" alt="Study with AI" class="quick-icon-img">
+                        </div>
+                        <span class="quick-label">Study with AI</span>
+                    </div>
+
+                    <!-- Bookmarks -->
+                    <div class="quick-access-item" onclick="navigateTo('bookmarks')">
+                        <div class="quick-icon bookmark-icon">
+                            <img src="../assets/icons/bookmarks.png" alt="Bookmarks" class="quick-icon-img">
+                        </div>
+                        <span class="quick-label">Bookmarks</span>
+                    </div>
+
+                    <!-- Settings -->
+                    <div class="quick-access-item" onclick="navigateTo('settings')">
+                        <div class="quick-icon settings-icon">
+                            <img src="../assets/icons/settings.png" alt="Settings" class="quick-icon-img">
+                        </div>
+                        <span class="quick-label">Settings</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Mobile Navigation Menu (Hidden by default) -->
+        <nav class="mobile-menu" id="mobileMenu">
+            <div class="menu-overlay" onclick="toggleMenu()"></div>
+            <div class="menu-content">
+                <div class="menu-header">
+                    <h3>CourseAlign</h3>
+                    <button class="close-menu" onclick="toggleMenu()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <ul class="menu-items">
+                    <li><a href="#" onclick="navigateTo('home')">Home</a></li>
+                    <li><a href="#" onclick="navigateTo('courses')">Courses</a></li>
+                    <li><a href="#" onclick="navigateTo('ai-chat')">AI Chat</a></li>
+                    <li><a href="#" onclick="navigateTo('bookmarks')">Bookmarks</a></li>
+                    <li><a href="#" onclick="navigateTo('practice-exam')">Practice Exam</a></li>
+                    <li><a href="#" onclick="navigateTo('profile')">Profile</a></li>
+                    <li><a href="#" onclick="handleLogout()">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        function openProfile() {
+            console.log('Profile clicked');
+            navigateTo('profile');
+        }
+
+        function navigateTo(page) {
+            console.log(`Navigating to: ${page}`);
+            
+            // Close menu if open
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.remove('active');
+            
+            // Navigation logic based on page
+            switch(page) {
+                case 'course-outline':
+                    // Navigate to course outline page
+                    window.location.href = 'courses.html';
+                    break;
+                case 'ai-chat':
+                    window.location.href = 'ai-chat.html';
+                    break;
+                case 'bookmarks':
+                    window.location.href = 'bookmark.html';
+                    break;
+                case 'practice-exam':
+                    window.location.href = 'exam.html';
+                    break;
+                case 'profile':
+                    alert('Profile page would be implemented here');
+                    break;
+                case 'home':
+                    window.location.href = 'home.html';
+                    break;
+                case 'courses':
+                    window.location.href = 'courses.html';
+                    break;
+                default:
+                    alert(`${page} page would be implemented here`);
+            }
+        }
+
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear any stored authentication
+                localStorage.removeItem('userToken');
+                sessionStorage.clear();
+                
+                // Redirect to login
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobileMenu');
+            const menuBtn = document.querySelector('.menu-btn');
+            
+            if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Add search functionality
+        document.querySelector('.search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            console.log('Searching for:', searchTerm);
+            // Implement search functionality here
+        });
+
+        // Add entrance animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const content = document.querySelector('.home-content');
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                content.style.transition = 'all 0.6s ease-out';
+                content.style.opacity = '1';
+                content.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
