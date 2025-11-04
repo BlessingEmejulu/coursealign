@@ -641,3 +641,279 @@ h1, h2, h3{
         font-size: 1.3rem;
     }
 }
+
+/* ===== SIGNUP SCREEN STYLES ===== */
+.signup-screen {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #f8fafb 0%, #ffffff 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.signup-container {
+    max-width: 400px;
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 151, 220, 0.1);
+    overflow: hidden;
+}
+
+.signup-header {
+    padding: 20px 20px 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-btn:hover {
+    background-color: rgba(0, 151, 220, 0.1);
+}
+
+.signup-content {
+    padding: 30px;
+}
+
+.title-section {
+    margin-bottom: 30px;
+}
+
+.signup-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.social-signup {
+    margin-bottom: 25px;
+}
+
+.google-btn {
+    width: 100%;
+    padding: 14px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    background: white;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+}
+
+.google-btn:hover {
+    border-color: #d0d0d0;
+    background-color: #f9f9f9;
+}
+
+.divider {
+    margin: 25px 0;
+    text-align: center;
+    position: relative;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.divider-text {
+    background: white;
+    padding: 0 15px;
+    color: #666;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.signup-form {
+    margin-bottom: 25px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.input-wrapper.focused {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 151, 220, 0.1);
+}
+
+.input-icon {
+    color: #666;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.input-wrapper input {
+    border: none;
+    outline: none;
+    background: none;
+    flex: 1;
+    font-size: 1rem;
+    color: #333;
+}
+
+.input-wrapper input::placeholder {
+    color: #999;
+}
+
+.password-toggle {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: 8px;
+    border-radius: 4px;
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: var(--primary-color);
+}
+
+.signup-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #007bb8 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 151, 220, 0.3);
+}
+
+.signup-btn:hover {
+    background: linear-gradient(135deg, #007bb8 0%, #005a8b 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 151, 220, 0.4);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-link p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.login-link-text {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link-text:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design for Signup Screen */
+@media (max-width: 768px) {
+    .signup-container {
+        max-width: 100%;
+        border-radius: 15px;
+        margin: 10px;
+    }
+    
+    .signup-content {
+        padding: 25px;
+    }
+    
+    .signup-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup-screen {
+        padding: 15px;
+    }
+    
+    .signup-container {
+        border-radius: 12px;
+    }
+    
+    .signup-header {
+        padding: 15px 15px 8px;
+    }
+    
+    .signup-content {
+        padding: 20px;
+    }
+    
+    .signup-title {
+        font-size: 2rem;
+    }
+    
+    .input-wrapper {
+        padding: 14px;
+    }
+    
+    .input-wrapper input {
+        font-size: 0.95rem;
+    }
+    
+    .google-btn {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+    }
+    
+    .signup-btn {
+        padding: 14px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .signup-content {
+        padding: 18px;
+    }
+    
+    .signup-title {
+        font-size: 1.8rem;
+    }
+    
+    .input-wrapper {
+        padding: 12px;
+    }
+}
