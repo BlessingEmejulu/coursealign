@@ -1,8 +1,45 @@
 // Modern course outline page functionality
 
-// Navigate back to previous page
+// Navigate back to previous page with fallback
 function goBack() {
-    window.history.back();
+    try {
+        console.log('Go back button clicked');
+        console.log('History length:', window.history.length);
+        console.log('Referrer:', document.referrer);
+        
+        // Check if we came from another page on the same domain
+        if (document.referrer && document.referrer.includes(window.location.hostname)) {
+            console.log('Going back to referrer');
+            window.history.back();
+        } else if (window.history.length > 1) {
+            console.log('Going back in history');
+            window.history.back();
+        } else {
+            // Fallback: navigate to home page if no history
+            console.log('No history, redirecting to home');
+            window.location.href = 'home.html';
+        }
+    } catch (error) {
+        console.error('Error in goBack function:', error);
+        // Emergency fallback
+        try {
+            window.location.href = 'home.html';
+        } catch (fallbackError) {
+            console.error('Fallback failed:', fallbackError);
+            // Last resort: try to navigate to index
+            window.location.href = '../index.html';
+        }
+    }
+}
+
+// Alternative navigation function
+function navigateToHome() {
+    try {
+        window.location.href = 'home.html';
+    } catch (error) {
+        console.error('Navigation error:', error);
+        window.location.href = '../index.html';
+    }
 }
 
 // Filter courses by level with modern animations
@@ -244,6 +281,16 @@ function showModernNotification(message, type = 'info') {
 
 // Initialize page with modern animations
 document.addEventListener('DOMContentLoaded', function() {
+    // Set up back button event listener
+    const backButton = document.querySelector('.modern-back-btn');
+    if (backButton) {
+        backButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            goBack();
+        });
+        console.log('Back button event listener added');
+    }
+    
     // Set default to 400 level
     filterCourses('400');
     
