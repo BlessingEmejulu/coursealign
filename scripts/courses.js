@@ -2,7 +2,8 @@
 
 // Global variables for course data
 let allCourses = [];
-let currentFilter = '400';
+let currentLevelFilter = '400';
+let currentSemesterFilter = 'all'; // 'all', '1st', '2nd'
 
 // Load courses data from JSON file
 async function loadCoursesData() {
@@ -95,7 +96,7 @@ function renderCourses(courses) {
     console.log(`Rendering ${courses.length} courses`);
     
     if (courses.length === 0) {
-        showNoCourses(currentFilter);
+        showNoCourses();
         return;
     }
     
@@ -125,21 +126,58 @@ function renderCourses(courses) {
 
 // Filter courses by level
 function filterByLevel(level) {
-    currentFilter = level;
-    console.log(`Filtering courses by level: ${level}`);
+    currentLevelFilter = level;
+    console.log(`🎯 Filtering courses by level: ${level}`);
     
-    // Update active tab
-    const tabs = document.querySelectorAll('.modern-filter-tab');
-    tabs.forEach(tab => {
+    // Update active level tab
+    const levelTabs = document.querySelectorAll('.modern-filter-tab[data-level]');
+    levelTabs.forEach(tab => {
         tab.classList.remove('active');
         if (tab.dataset.level === level) {
             tab.classList.add('active');
         }
     });
     
-    // Filter and render courses
-    const filteredCourses = allCourses.filter(course => course.level.toString() === level);
-    console.log(`Found ${filteredCourses.length} courses for level ${level}`);
+    // Apply combined filters
+    applyFilters();
+}
+
+// Filter courses by semester
+function filterBySemester(semester) {
+    currentSemesterFilter = semester;
+    console.log(`📅 Filtering courses by semester: ${semester}`);
+    
+    // Update active semester tab
+    const semesterTabs = document.querySelectorAll('.semester-filter-tab');
+    semesterTabs.forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.dataset.semester === semester) {
+            tab.classList.add('active');
+        }
+    });
+    
+    // Apply combined filters
+    applyFilters();
+}
+
+// Apply both level and semester filters
+function applyFilters() {
+    console.log(`🔍 Applying filters - Level: ${currentLevelFilter}, Semester: ${currentSemesterFilter}`);
+    
+    let filteredCourses = allCourses.filter(course => {
+        // Filter by level
+        const levelMatch = course.level.toString() === currentLevelFilter;
+        
+        // Filter by semester
+        let semesterMatch = true;
+        if (currentSemesterFilter !== 'all') {
+            semesterMatch = course.semester === currentSemesterFilter;
+        }
+        
+        return levelMatch && semesterMatch;
+    });
+    
+    console.log(`📊 Found ${filteredCourses.length} courses matching filters`);
     renderCourses(filteredCourses);
 }
 
@@ -225,12 +263,17 @@ function filterCourses(level) {
 }
 
 // Show modern no courses message
-function showNoCourses(level) {
+function showNoCourses() {
     hideNoCourses(); // Remove existing message
     
     const container = document.querySelector('.modern-courses-grid');
     const noCoursesDiv = document.createElement('div');
     noCoursesDiv.className = 'no-courses-modern';
+    
+    // Create filter description
+    const semesterText = currentSemesterFilter === 'all' ? 'all semesters' : `${currentSemesterFilter} semester`;
+    const filterDescription = `${currentLevelFilter} level courses (${semesterText})`;
+    
     noCoursesDiv.innerHTML = `
         <div style="
             grid-column: 1 / -1;
@@ -260,7 +303,7 @@ function showNoCourses(level) {
                 </svg>
             </div>
             <h3 style="margin: 0 0 12px 0; font-size: 1.5rem; font-weight: 600; color: #374151;">No courses available</h3>
-            <p style="margin: 0; font-size: 1rem; line-height: 1.6; max-width: 400px; margin: 0 auto;">No ${level} level courses found at the moment. Please check back later or try a different level.</p>
+            <p style="margin: 0; font-size: 1rem; line-height: 1.6; max-width: 400px; margin: 0 auto;">No ${filterDescription} found at the moment. Try adjusting your filters or check back later.</p>
         </div>
     `;
     container.appendChild(noCoursesDiv);
@@ -450,8 +493,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Load courses data from JSON
         await loadCoursesData();
         
-        // Set default filter to 400 level and render
-        currentFilter = '400';
+        // Set default filters and render
+        currentLevelFilter = '400';
+        currentSemesterFilter = 'all';
         filterByLevel('400');
     } else {
         console.log('Detected course-outline.html page - using static content');

@@ -33,10 +33,19 @@
             </div>
         </div>
 
+        <!-- Semester Filter -->
+        <div class="semester-filter-section">
+            <div class="semester-filter-container">
+                <button class="semester-filter-tab active" data-semester="all" onclick="filterBySemester('all')">All Semesters</button>
+                <button class="semester-filter-tab" data-semester="1st" onclick="filterBySemester('1st')">1st Semester</button>
+                <button class="semester-filter-tab" data-semester="2nd" onclick="filterBySemester('2nd')">2nd Semester</button>
+            </div>
+        </div>
+
         <!-- Loading Indicator -->
         <div class="loading-indicator" style="text-align: center; padding: 3rem; color: #6b7280;">
             <div class="spinner" style="display: inline-block; width: 40px; height: 40px; border: 3px solid #f3f4f6; border-top: 3px solid #0097dc; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            <p style="margin-top: 1rem;">Loading courses from JSON file...</p>
+            <p style="margin-top: 1rem;">Loading courses ...</p>
         </div>
         
         <style>

@@ -1604,6 +1604,46 @@ h1, h2, h3{
     box-shadow: 0 4px 12px rgba(0, 151, 220, 0.3);
 }
 
+/* Semester Filter */
+.semester-filter-section {
+    margin: 1rem 0;
+    padding: 0 1rem;
+}
+
+.semester-filter-container {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.semester-filter-tab {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #64748b;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.semester-filter-tab:hover {
+    background: #f1f5f9;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.semester-filter-tab.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 151, 220, 0.3);
+}
+
 /* Course Grid */
 .modern-courses-grid {
     display: grid;
