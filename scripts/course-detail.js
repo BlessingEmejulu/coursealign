@@ -9,8 +9,6 @@ let allCourses = [];
 
 // Initialize page when DOM loads
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('🚀 Course Detail Page Initialized');
-    
     try {
         // Load courses data
         await loadCoursesData();
@@ -32,7 +30,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 // Load courses data from JSON
 async function loadCoursesData() {
     try {
-        console.log('📚 Loading courses data...');
         const response = await fetch('../scripts/courses.json');
         
         if (!response.ok) {
@@ -40,7 +37,6 @@ async function loadCoursesData() {
         }
         
         allCourses = await response.json();
-        console.log(`✅ Loaded ${allCourses.length} courses`);
         
     } catch (error) {
         console.error('❌ Failed to load courses:', error);
@@ -52,14 +48,11 @@ async function loadCoursesData() {
 function getCourseCodeFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     const courseCode = urlParams.get('code');
-    console.log('🔍 Course code from URL:', courseCode);
     return courseCode;
 }
 
 // Load and display course details
 function loadCourseDetails(courseCode) {
-    console.log(`📖 Loading details for course: ${courseCode}`);
-    
     // Find the course in our data
     const course = allCourses.find(c => 
         c.code.replace(/\s+/g, '').toLowerCase() === courseCode.replace(/\s+/g, '').toLowerCase()
@@ -72,7 +65,6 @@ function loadCourseDetails(courseCode) {
     }
     
     currentCourse = course;
-    console.log('✅ Course found:', course);
     
     // Update page content
     updatePageContent(course);
@@ -103,8 +95,6 @@ function updatePageContent(course) {
     
     // Update course outline
     updateCourseOutline(course.course_outline);
-    
-    console.log('✅ Page content updated');
 }
 
 // Update course outline with better formatting

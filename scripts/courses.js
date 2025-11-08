@@ -8,20 +8,12 @@ let currentSemesterFilter = 'all'; // 'all', '1st', '2nd'
 // Load courses data from JSON file
 async function loadCoursesData() {
     try {
-        console.log('🔍 Loading courses data from JSON...');
-        console.log('📁 Fetching from: ../scripts/courses.json');
         const response = await fetch('../scripts/courses.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
         allCourses = data; // Direct array from JSON
-        console.log(`✅ Successfully loaded ${allCourses.length} courses from JSON file`);
-        
-        // Log sample course for verification
-        if (allCourses.length > 0) {
-            console.log('📋 Sample course:', allCourses[0]);
-        }
         
         return allCourses;
     } catch (error) {
@@ -93,8 +85,6 @@ function renderCourses(courses) {
     const existingCards = grid.querySelectorAll('.modern-course-card');
     existingCards.forEach(card => card.remove());
     
-    console.log(`Rendering ${courses.length} courses`);
-    
     if (courses.length === 0) {
         showNoCourses();
         return;
@@ -127,7 +117,6 @@ function renderCourses(courses) {
 // Filter courses by level
 function filterByLevel(level) {
     currentLevelFilter = level;
-    console.log(`🎯 Filtering courses by level: ${level}`);
     
     // Update active level tab
     const levelTabs = document.querySelectorAll('.modern-filter-tab[data-level]');
@@ -145,7 +134,6 @@ function filterByLevel(level) {
 // Filter courses by semester
 function filterBySemester(semester) {
     currentSemesterFilter = semester;
-    console.log(`📅 Filtering courses by semester: ${semester}`);
     
     // Update active semester tab
     const semesterTabs = document.querySelectorAll('.semester-filter-tab');
@@ -162,8 +150,6 @@ function filterBySemester(semester) {
 
 // Apply both level and semester filters
 function applyFilters() {
-    console.log(`🔍 Applying filters - Level: ${currentLevelFilter}, Semester: ${currentSemesterFilter}`);
-    
     let filteredCourses = allCourses.filter(course => {
         // Filter by level
         const levelMatch = course.level.toString() === currentLevelFilter;
@@ -177,7 +163,6 @@ function applyFilters() {
         return levelMatch && semesterMatch;
     });
     
-    console.log(`📊 Found ${filteredCourses.length} courses matching filters`);
     renderCourses(filteredCourses);
 }
 
@@ -218,20 +203,13 @@ function showErrorMessage(message) {
 // Navigate back to previous page with fallback
 function goBack() {
     try {
-        console.log('Go back button clicked');
-        console.log('History length:', window.history.length);
-        console.log('Referrer:', document.referrer);
-        
         // Check if we came from another page on the same domain
         if (document.referrer && document.referrer.includes(window.location.hostname)) {
-            console.log('Going back to referrer');
             window.history.back();
         } else if (window.history.length > 1) {
-            console.log('Going back in history');
             window.history.back();
         } else {
             // Fallback: navigate to home page if no history
-            console.log('No history, redirecting to home');
             window.location.href = 'home.html';
         }
     } catch (error) {
@@ -319,8 +297,6 @@ function hideNoCourses() {
 
 // Navigate to course outline page
 function getCourseOutline(courseCode) {
-    console.log(`🔍 Opening course outline for: ${courseCode}`);
-    
     // Clean up course code for URL
     const cleanCourseCode = courseCode.replace(/\s+/g, '');
     
@@ -332,8 +308,6 @@ function getCourseOutline(courseCode) {
         showModernNotification('Course not found', 'error');
         return;
     }
-    
-    console.log(`✅ Found course, navigating to detail page:`, course);
     
     // Show loading state on button
     const button = event.target.closest('.modern-outline-btn');
@@ -476,8 +450,6 @@ function showModernNotification(message, type = 'info') {
 
 // Initialize page with modern animations
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('Page loaded, initializing...');
-    
     // Set up back button event listener
     const backButton = document.querySelector('.modern-back-btn');
     if (backButton) {
@@ -485,14 +457,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             e.preventDefault();
             goBack();
         });
-        console.log('Back button event listener added');
     }
     
     // Check if we're on the courses.html page (with dynamic loading)
     const loadingIndicator = document.querySelector('.loading-indicator');
     if (loadingIndicator) {
-        console.log('Detected courses.html page - loading dynamic content');
-        
         // Load courses data from JSON
         await loadCoursesData();
         
@@ -501,7 +470,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         currentSemesterFilter = 'all';
         filterByLevel('400');
     } else {
-        console.log('Detected course-outline.html page - using static content');
         
         // Legacy behavior for course-outline.html with hardcoded cards
         filterCourses('400');
