@@ -1,5 +1,175 @@
 // Modern course outline page functionality
 
+// Global variables for course data
+let allCourses = [];
+let currentFilter = '400';
+
+// Load courses data from JSON file
+async function loadCoursesData() {
+    try {
+        console.log('Loading courses data from JSON...');
+        const response = await fetch('../scripts/courses.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        allCourses = data; // Direct array from JSON
+        console.log(`Loaded ${allCourses.length} courses from JSON file`);
+        return allCourses;
+    } catch (error) {
+        console.error('Error loading courses data:', error);
+        showErrorMessage('Failed to load course data. Please refresh the page.');
+        return [];
+    }
+}
+
+// Create course card HTML using JSON data structure
+function createCourseCard(course) {
+    const courseDescription = course.course_outline ? course.course_outline.substring(0, 120) + '...' : 'Course description not available.';
+    const semesterText = course.semester ? `${course.semester} Semester` : 'TBD';
+    
+    return `
+        <div class="modern-course-card" data-level="${course.level}">
+            <div class="card-header">
+                <div class="course-meta">
+                    <span class="course-code-modern">${course.code}</span>
+                    <span class="course-units-modern">${course.unit} Unit${course.unit !== 1 ? 's' : ''}</span>
+                </div>
+                <button class="heart-bookmark" onclick="toggleBookmark('${course.code.replace(/\s+/g, '')}')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="card-content">
+                <h3 class="modern-course-title">${course.title}</h3>
+                <p class="course-description">${courseDescription}</p>
+                <div class="modern-course-tags">
+                    <span class="modern-tag primary">${course.level} Level</span>
+                    <span class="modern-tag">${semesterText}</span>
+                    <span class="modern-tag">CIS Dept</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="modern-outline-btn" onclick="getCourseOutline('${course.code.replace(/\s+/g, '')}')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="12" y1="9" x2="8" y2="9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Get Outline
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// Render courses to the grid
+function renderCourses(courses) {
+    const grid = document.querySelector('.modern-courses-grid');
+    const loadingDiv = document.querySelector('.loading-indicator');
+    
+    if (!grid) {
+        console.error('Courses grid container not found');
+        return;
+    }
+    
+    // Hide loading indicator
+    if (loadingDiv) {
+        loadingDiv.style.display = 'none';
+    }
+    
+    // Clear existing cards (but keep loading indicator for potential future use)
+    const existingCards = grid.querySelectorAll('.modern-course-card');
+    existingCards.forEach(card => card.remove());
+    
+    console.log(`Rendering ${courses.length} courses`);
+    
+    if (courses.length === 0) {
+        showNoCourses(currentFilter);
+        return;
+    }
+    
+    // Remove any no-courses message
+    hideNoCourses();
+    
+    // Create and add course cards
+    courses.forEach((course, index) => {
+        const cardHTML = createCourseCard(course);
+        const cardElement = document.createElement('div');
+        cardElement.innerHTML = cardHTML;
+        const card = cardElement.firstElementChild;
+        
+        // Add entrance animation
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        grid.appendChild(card);
+        
+        // Animate in with stagger
+        setTimeout(() => {
+            card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100 + 200);
+    });
+}
+
+// Filter courses by level
+function filterByLevel(level) {
+    currentFilter = level;
+    console.log(`Filtering courses by level: ${level}`);
+    
+    // Update active tab
+    const tabs = document.querySelectorAll('.modern-filter-tab');
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.dataset.level === level) {
+            tab.classList.add('active');
+        }
+    });
+    
+    // Filter and render courses
+    const filteredCourses = allCourses.filter(course => course.level.toString() === level);
+    console.log(`Found ${filteredCourses.length} courses for level ${level}`);
+    renderCourses(filteredCourses);
+}
+
+// Show error message
+function showErrorMessage(message) {
+    const grid = document.querySelector('.modern-courses-grid');
+    const loadingDiv = document.querySelector('.loading-indicator');
+    
+    if (loadingDiv) {
+        loadingDiv.style.display = 'none';
+    }
+    
+    if (grid) {
+        grid.innerHTML = `
+            <div class="error-message" style="
+                grid-column: 1 / -1;
+                text-align: center;
+                padding: 60px 20px;
+                color: #ef4444;
+                background: #ffffff;
+                border-radius: 20px;
+                border: 1px solid #fecaca;
+            ">
+                <div style="margin-bottom: 16px;">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: #ef4444;">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2"/>
+                        <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h3 style="margin: 0 0 12px 0; font-size: 1.5rem; font-weight: 600;">Error Loading Courses</h3>
+                <p style="margin: 0; font-size: 1rem; line-height: 1.6;">${message}</p>
+            </div>
+        `;
+    }
+}
+
 // Navigate back to previous page with fallback
 function goBack() {
     try {
@@ -42,37 +212,9 @@ function navigateToHome() {
     }
 }
 
-// Filter courses by level with modern animations
+// Legacy function for backward compatibility
 function filterCourses(level) {
-    // Update active tab
-    const tabs = document.querySelectorAll('.modern-filter-tab');
-    tabs.forEach(tab => tab.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    // Hide all course cards with fade animation
-    const cards = document.querySelectorAll('.modern-course-card');
-    cards.forEach((card, index) => {
-        card.style.animation = 'fadeOut 0.3s ease forwards';
-        setTimeout(() => {
-            if (card.dataset.level === level) {
-                card.style.display = 'flex';
-                card.style.animation = `cardSlideIn 0.6s ease forwards`;
-                card.style.animationDelay = `${index * 0.1}s`;
-            } else {
-                card.style.display = 'none';
-            }
-        }, 300);
-    });
-    
-    // Check if we need to show no courses message
-    setTimeout(() => {
-        const visibleCards = document.querySelectorAll(`[data-level="${level}"]`);
-        if (visibleCards.length === 0) {
-            showNoCourses(level);
-        } else {
-            hideNoCourses();
-        }
-    }, 400);
+    filterByLevel(level);
 }
 
 // Show modern no courses message
@@ -280,7 +422,9 @@ function showModernNotification(message, type = 'info') {
 }
 
 // Initialize page with modern animations
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('Page loaded, initializing...');
+    
     // Set up back button event listener
     const backButton = document.querySelector('.modern-back-btn');
     if (backButton) {
@@ -291,21 +435,36 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Back button event listener added');
     }
     
-    // Set default to 400 level
-    filterCourses('400');
-    
-    // Add entrance animations to cards
-    const cards = document.querySelectorAll('.modern-course-card');
-    cards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
+    // Check if we're on the courses.html page (with dynamic loading)
+    const loadingIndicator = document.querySelector('.loading-indicator');
+    if (loadingIndicator) {
+        console.log('Detected courses.html page - loading dynamic content');
         
-        setTimeout(() => {
-            card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-        }, index * 100 + 200);
-    });
+        // Load courses data from JSON
+        await loadCoursesData();
+        
+        // Set default filter to 400 level and render
+        currentFilter = '400';
+        filterByLevel('400');
+    } else {
+        console.log('Detected course-outline.html page - using static content');
+        
+        // Legacy behavior for course-outline.html with hardcoded cards
+        filterCourses('400');
+        
+        // Add entrance animations to existing cards
+        const cards = document.querySelectorAll('.modern-course-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100 + 200);
+        });
+    }
 });
 
 // Add CSS fade out animation
