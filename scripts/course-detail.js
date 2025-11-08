@@ -1,20 +1,12 @@
-/**
- * Course Detail Page - Modern & Sleek Implementation
- * Loads and displays detailed course information
- */
-
-// Global variables
+// Course Detail Page
 let currentCourse = null;
 let allCourses = [];
 
-// Initialize page when DOM loads
+// Initialize page
 document.addEventListener('DOMContentLoaded', async function() {
     try {
-        // Load courses data
         await loadCoursesData();
-        
-        // Get course code from URL parameters
-        const courseCode = getCourseCodeFromURL();
+        const courseCode = new URLSearchParams(window.location.search).get('code');
         
         if (courseCode) {
             loadCourseDetails(courseCode);
@@ -27,28 +19,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
-// Load courses data from JSON
+// Load courses data
 async function loadCoursesData() {
-    try {
-        const response = await fetch('../scripts/courses.json');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        allCourses = await response.json();
-        
-    } catch (error) {
-        console.error('❌ Failed to load courses:', error);
-        throw error;
-    }
-}
-
-// Get course code from URL parameters
-function getCourseCodeFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const courseCode = urlParams.get('code');
-    return courseCode;
+    const response = await fetch('../scripts/courses.json');
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    allCourses = await response.json();
 }
 
 // Load and display course details
@@ -125,34 +100,8 @@ function updateCourseOutline(outline) {
 
 // Format outline text for better readability
 function formatOutlineText(text) {
-    // Split by sentences and create paragraphs
-    const sentences = text.split(/\.\s+/).filter(s => s.trim().length > 0);
-    
-    if (sentences.length <= 1) {
-        return `<p class="outline-paragraph">${text}</p>`;
-    }
-    
-    // Group sentences into logical paragraphs
-    const paragraphs = [];
-    let currentParagraph = [];
-    
-    sentences.forEach((sentence, index) => {
-        currentParagraph.push(sentence.trim());
-        
-        // Create new paragraph every 2-3 sentences or at logical breaks
-        if (currentParagraph.length >= 3 || 
-            sentence.includes('Practical Section') || 
-            sentence.includes('Laboratory') ||
-            sentence.includes('Assessment') ||
-            index === sentences.length - 1) {
-            
-            const paragraphText = currentParagraph.join('. ') + (currentParagraph[currentParagraph.length - 1].endsWith('.') ? '' : '.');
-            paragraphs.push(`<p class="outline-paragraph">${paragraphText}</p>`);
-            currentParagraph = [];
-        }
-    });
-    
-    return paragraphs.join('');
+    // Simple paragraph formatting
+    return `<div class="course-outline">${text}</div>`;
 }
 
 // Animate page content on load
@@ -196,130 +145,48 @@ function goBack() {
 // Share course functionality
 function shareCourse() {
     if (!currentCourse) {
-        showNotification('No course loaded', 'error');
+        alert('No course loaded');
         return;
     }
     
-    const shareData = {
-        title: `${currentCourse.title} (${currentCourse.code})`,
-        text: `Check out this ${currentCourse.level} level course: ${currentCourse.title}\\n\\n${currentCourse.course_outline ? currentCourse.course_outline.substring(0, 200) + '...' : 'Course outline available on CourseAlign'}`,
-        url: window.location.href
-    };
+    const shareText = `${currentCourse.title} (${currentCourse.code}) - ${window.location.href}`;
     
     // Try native share API first
     if (navigator.share) {
-        navigator.share(shareData)
-            .then(() => showNotification('Course shared successfully!', 'success'))
-            .catch(() => fallbackShare(shareData));
+        navigator.share({
+            title: `${currentCourse.title} (${currentCourse.code})`,
+            url: window.location.href
+        }).catch(() => {
+            // Fallback to clipboard
+            copyToClipboard(shareText);
+        });
     } else {
-        fallbackShare(shareData);
+        copyToClipboard(shareText);
     }
 }
 
-// Fallback share function
-function fallbackShare(shareData) {
-    const shareText = `${shareData.title}\\n\\n${shareData.text}\\n\\n${shareData.url}`;
-    
+// Copy to clipboard helper
+function copyToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(shareText)
-            .then(() => showNotification('Course details copied to clipboard!', 'success'))
-            .catch(() => showShareOptions(shareData));
+        navigator.clipboard.writeText(text)
+            .then(() => alert('Course link copied to clipboard!'))
+            .catch(() => alert('Unable to copy. Please copy the URL manually.'));
     } else {
-        showShareOptions(shareData);
+        alert('Course URL: ' + window.location.href);
     }
 }
 
-// Show share options
-function showShareOptions(shareData) {
-    const modal = document.createElement('div');
-    modal.className = 'share-modal-overlay';
-    modal.innerHTML = `
-        <div class="share-modal">
-            <h3>Share Course</h3>
-            <div class="share-options">
-                <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.text)}&url=${encodeURIComponent(shareData.url)}" target="_blank" class="share-option twitter">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                    </svg>
-                    Twitter
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}" target="_blank" class="share-option facebook">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-                    </svg>
-                    Facebook
-                </a>
-                <a href="mailto:?subject=${encodeURIComponent(shareData.title)}&body=${encodeURIComponent(shareData.text + '\\n\\n' + shareData.url)}" class="share-option email">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
-                    </svg>
-                    Email
-                </a>
-            </div>
-            <button onclick="this.closest('.share-modal-overlay').remove()" class="close-share">Close</button>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // Auto-close after 15 seconds
-    setTimeout(() => {
-        if (modal.parentElement) {
-            modal.remove();
-        }
-    }, 15000);
-}
 
-// Toggle bookmark
-function toggleBookmark() {
-    if (!currentCourse) return;
-    
-    const bookmarkBtn = document.querySelector('.secondary-action-btn');
-    const isBookmarked = bookmarkBtn.classList.contains('bookmarked');
-    
-    if (isBookmarked) {
-        bookmarkBtn.classList.remove('bookmarked');
-        showNotification('Removed from bookmarks', 'info');
-    } else {
-        bookmarkBtn.classList.add('bookmarked');
-        showNotification('Added to bookmarks', 'success');
-    }
-}
-
-// Show notification
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-    
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => notification.classList.add('show'), 100);
-    
-    // Auto remove
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
 
 // Show error state
 function showError(message) {
-    const content = document.querySelector('.course-content');
-    content.innerHTML = `
-        <div class="error-state">
-            <div class="error-icon">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                    <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2"/>
-                    <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2"/>
-                </svg>
+    document.body.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center;">
+            <div>
+                <h2>Error</h2>
+                <p>${message}</p>
+                <button onclick="goBack()">Go Back</button>
             </div>
-            <h2>Course Not Found</h2>
-            <p>${message}</p>
-            <button onclick="goBack()" class="error-back-btn">Back to Courses</button>
         </div>
     `;
 }
