@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat - CourseAlign</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <main class="main-content">
+        <div class="construction-container">
+            <div class="construction-content">
+                <!-- Construction Icon -->
+                <div class="construction-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                
+                <!-- Main Message -->
+                <div class="construction-message">
+                    <h1>AI Study Chat</h1>
+                    <h2>Coming Soon!</h2>
+                    <p>We're building an intelligent chat bot powered by RAG (Retrieval-Augmented Generation) technology to help you discuss courses, get study guidance, and practice with possible exam questions.</p>
+                </div>
+                
+                <!-- Features Preview -->
+                <div class="features-preview">
+                    <h3>What You Can Do:</h3>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-book-open"></i>
+                            <span>Discuss course content and topics</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Get possible exam questions and practice</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Receive study tips and explanations</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-search"></i>
+                            <span>Search and retrieve course information</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Back Button -->
+                <div class="construction-actions">
+                    <button class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                        Go Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        // Add some interactive animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const icon = document.querySelector('.construction-icon i');
+            
+            setInterval(() => {
+                icon.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    icon.style.transform = 'scale(1)';
+                }, 300);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
