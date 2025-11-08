@@ -2569,6 +2569,12 @@ h1, h2, h3{
     z-index: 100;
 }
 
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .nav-back, .nav-share {
     background: none;
     border: none;
@@ -2595,6 +2601,13 @@ h1, h2, h3{
 .nav-back:active, .nav-share:active {
     background: #e5e7eb;
     transform: scale(0.95);
+}
+
+/* Heart bookmark in navigation */
+.nav-actions .heart-bookmark {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px;
 }
 
 .nav-title {
@@ -3258,6 +3271,10 @@ h1, h2, h3{
         min-width: 44px;
         min-height: 44px;
     }
+    
+    .nav-actions {
+        gap: 0.25rem;
+    }
 }
 
 /* Standard Tablet (768px - 833px) */
@@ -3376,6 +3393,10 @@ h1, h2, h3{
         border-radius: 10px;
     }
     
+    .nav-actions {
+        gap: 0.25rem;
+    }
+    
     .nav-back svg, .nav-share svg {
         width: 18px;
         height: 18px;
@@ -3468,6 +3489,10 @@ h1, h2, h3{
         min-width: 36px;
         min-height: 36px;
         border-radius: 8px;
+    }
+    
+    .nav-actions {
+        gap: 0.125rem;
     }
     
     .nav-back svg, .nav-share svg {

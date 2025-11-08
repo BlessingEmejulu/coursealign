@@ -70,6 +70,129 @@ function updatePageContent(course) {
     
     // Update course outline
     updateCourseOutline(course.course_outline);
+    
+    // Update bookmark state
+    updateBookmarkState();
+}
+
+// Update bookmark button state based on local storage
+function updateBookmarkState() {
+    if (!currentCourse) return;
+    
+    const bookmarkBtn = document.querySelector('.heart-bookmark');
+    const bookmarkedCourses = getBookmarkedCourses();
+    const isBookmarked = bookmarkedCourses.some(course => course.code === currentCourse.code);
+    
+    if (isBookmarked) {
+        bookmarkBtn.classList.add('bookmarked');
+        bookmarkBtn.title = 'Remove from bookmarks';
+    } else {
+        bookmarkBtn.classList.remove('bookmarked');
+        bookmarkBtn.title = 'Bookmark course';
+    }
+}
+
+// Toggle bookmark functionality
+function toggleBookmark() {
+    if (!currentCourse) {
+        alert('No course loaded');
+        return;
+    }
+    
+    const bookmarkBtn = document.querySelector('.heart-bookmark');
+    const bookmarkedCourses = getBookmarkedCourses();
+    const isBookmarked = bookmarkedCourses.some(course => course.code === currentCourse.code);
+    
+    if (isBookmarked) {
+        // Remove bookmark
+        const updatedBookmarks = bookmarkedCourses.filter(course => course.code !== currentCourse.code);
+        saveBookmarkedCourses(updatedBookmarks);
+        bookmarkBtn.classList.remove('bookmarked');
+        bookmarkBtn.title = 'Bookmark course';
+        showToast('Removed from bookmarks', 'info');
+    } else {
+        // Add bookmark
+        const newBookmark = {
+            code: currentCourse.code,
+            title: currentCourse.title,
+            level: currentCourse.level,
+            unit: currentCourse.unit,
+            semester: currentCourse.semester,
+            bookmarkedAt: new Date().toISOString()
+        };
+        bookmarkedCourses.push(newBookmark);
+        saveBookmarkedCourses(bookmarkedCourses);
+        bookmarkBtn.classList.add('bookmarked');
+        bookmarkBtn.title = 'Remove from bookmarks';
+        showToast('Added to bookmarks', 'success');
+    }
+}
+
+// Get bookmarked courses from localStorage
+function getBookmarkedCourses() {
+    try {
+        const bookmarks = localStorage.getItem('coursealign_bookmarks');
+        return bookmarks ? JSON.parse(bookmarks) : [];
+    } catch (error) {
+        console.error('Error loading bookmarks:', error);
+        return [];
+    }
+}
+
+// Save bookmarked courses to localStorage
+function saveBookmarkedCourses(courses) {
+    try {
+        localStorage.setItem('coursealign_bookmarks', JSON.stringify(courses));
+    } catch (error) {
+        console.error('Error saving bookmarks:', error);
+        alert('Unable to save bookmark. Please try again.');
+    }
+}
+
+// Show toast notification
+function showToast(message, type = 'info') {
+    // Remove existing toast
+    const existingToast = document.querySelector('.toast-notification');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = `toast-notification toast-${type}`;
+    toast.textContent = message;
+    
+    // Add toast styles
+    toast.style.cssText = `
+        position: fixed;
+        top: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#6b7280'};
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 1000;
+        opacity: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Animate in
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+    }, 100);
+    
+    // Auto remove
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(-10px)';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 
 // Update course outline with better formatting
