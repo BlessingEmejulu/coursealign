@@ -7,14 +7,21 @@ let currentFilter = '400';
 // Load courses data from JSON file
 async function loadCoursesData() {
     try {
-        console.log('Loading courses data from JSON...');
+        console.log('🔍 Loading courses data from JSON...');
+        console.log('📁 Fetching from: ../scripts/courses.json');
         const response = await fetch('../scripts/courses.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
         allCourses = data; // Direct array from JSON
-        console.log(`Loaded ${allCourses.length} courses from JSON file`);
+        console.log(`✅ Successfully loaded ${allCourses.length} courses from JSON file`);
+        
+        // Log sample course for verification
+        if (allCourses.length > 0) {
+            console.log('📋 Sample course:', allCourses[0]);
+        }
+        
         return allCourses;
     } catch (error) {
         console.error('Error loading courses data:', error);
