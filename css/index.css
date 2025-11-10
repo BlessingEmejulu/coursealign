@@ -3673,3 +3673,203 @@ h1, h2, h3{
         font-size: 0.9rem;
     }
 }
+
+/* Simple Bookmark Page Styles */
+.bookmark-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 2rem 1rem;
+}
+
+.bookmark-content {
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.heart-icon {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(135deg, #0097DC, #00bcd4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 15px 30px rgba(0, 151, 220, 0.3);
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+.heart-icon svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.bookmark-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #0097DC;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.bookmark-content h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.bookmark-content p {
+    font-size: 1.1rem;
+    color: #777;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.back-button {
+    margin-top: 2rem;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #0097DC, #00bcd4);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 1rem;
+    box-shadow: 0 8px 25px rgba(0, 151, 220, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-back:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(0, 151, 220, 0.4);
+    background: linear-gradient(135deg, #007bb8, #0097DC);
+}
+
+.btn-back svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-back:hover svg {
+    transform: translateX(-3px);
+}
+
+/* Responsive Design for Bookmark Page */
+@media (max-width: 768px) {
+    .bookmark-page {
+        padding: 1rem;
+    }
+    
+    .bookmark-content {
+        padding: 2rem 1.5rem;
+        border-radius: 15px;
+    }
+    
+    .heart-icon {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .heart-icon svg {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .bookmark-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .bookmark-content h2 {
+        font-size: 1.3rem;
+    }
+    
+    .bookmark-content p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .btn-back {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .bookmark-content {
+        padding: 1.5rem 1rem;
+        margin: 0 0.5rem;
+    }
+    
+    .heart-icon {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .heart-icon svg {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .bookmark-content h1 {
+        font-size: 2rem;
+    }
+    
+    .bookmark-content h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .bookmark-content p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .btn-back {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .bookmark-content h1 {
+        font-size: 1.75rem;
+    }
+    
+    .heart-icon {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .heart-icon svg {
+        width: 50px;
+        height: 50px;
+    }
+}
