@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0097DC">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CourseAlign">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#0097DC">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/assets/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/icon-192x192.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/icon-16x16.png">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>CourseAlign - Your Learning Journey Starts Here</title>
+    <meta name="description" content="CourseAlign ndi Komputa - Transform your learning journey with personalized courses and AI-powered assistance.">
+</head>
+<body>
+    <!-- Splash Screen (will redirect to appropriate page) -->
+    <div class="app-loader">
+        <div class="splash-screen">
+            <div class="splash-background">
+                <div class="splash-content">
+                    <h1 class="brand-title">CourseAlign</h1>
+                    <div class="subtitle">ndi Komputa</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Install Prompt (hidden by default) -->
+    <div id="installPrompt" class="install-prompt" style="display: none;">
+        <div class="install-content">
+            <h3>Install CourseAlign</h3>
+            <p>Add CourseAlign to your home screen for a better experience!</p>
+            <div class="install-buttons">
+                <button id="installBtn" class="install-btn">Install</button>
+                <button id="dismissBtn" class="dismiss-btn">Not Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Scripts -->
+    <script src="/scripts/pwa.js"></script>
+    <script src="/scripts/index.js"></script>
+    <script>
+        // App initialization and redirection logic
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in or show splash
+            setTimeout(() => {
+                // For now, redirect to splash screen
+                window.location.href = '/screens/splash-screen.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
