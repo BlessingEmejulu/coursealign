@@ -4087,3 +4087,68 @@ h1, h2, h3{
         height: 40px;
     }
 }
+
+/* Sleek Footer Styles */
+.sleek-footer {
+    background: #ffffff;
+    border-top: 1px solid rgba(0, 151, 220, 0.1);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    margin-top: auto;
+    position: relative;
+    z-index: 100;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-text {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+    margin: 0;
+    font-weight: 400;
+}
+
+.footer-highlight {
+    color: #0097DC;
+    font-weight: 600;
+}
+
+.footer-love {
+    color: #e74c3c;
+    font-size: 1rem;
+}
+
+.footer-year {
+    color: #0097DC;
+    font-weight: 600;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .sleek-footer {
+        padding: 1rem 0.75rem;
+    }
+    
+    .footer-text {
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+}
+
+@media (max-width: 480px) {
+    .sleek-footer {
+        padding: 0.875rem 0.5rem;
+    }
+    
+    .footer-text {
+        font-size: 0.75rem;
+    }
+    
+    .footer-love {
+        font-size: 0.9rem;
+    }
+}
