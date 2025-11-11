@@ -128,10 +128,13 @@
         }
 
         function openProfile() {
+            console.log('Profile clicked');
             navigateTo('profile');
         }
 
         function navigateTo(page) {
+            console.log(`Navigating to: ${page}`);
+            
             // Close menu if open
             const menu = document.getElementById('mobileMenu');
             menu.classList.remove('active');
@@ -189,6 +192,7 @@
         // Add search functionality
         document.querySelector('.search-input').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
+            console.log('Searching for:', searchTerm);
             // Implement search functionality here
         });
 
