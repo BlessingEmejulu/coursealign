@@ -27,19 +27,12 @@
 
         <!-- Main Content Container -->
         <div class="home-content">
-            <!-- Greeting Section -->
-            <section class="greeting-section">
-                <h2 class="greeting-text">Hi Blessing!</h2>
-            </section>
-
-            <!-- Search Bar -->
-            <section class="search-section">
-                <div class="search-container">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
-                        <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <input type="text" placeholder="Search" class="search-input">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Welcome to CourseAlign</h1>
+                    <h2 class="hero-subtitle">Ndi Komputa</h2>
+                    <p class="hero-description">Your personalized learning journey starts here. Transform your academic goals into achievements.</p>
                 </div>
             </section>
 
@@ -47,8 +40,8 @@
             <section class="welcome-section">
                 <div class="welcome-card">
                     <div class="welcome-content">
-                        <h3 class="welcome-title">Welcome!</h3>
-                        <p class="welcome-description">Get ready to achieve your academic goals.</p>
+                        <h3 class="welcome-title">Hi SurePlug!</h3>
+                        <p class="welcome-description">Ready to explore new courses and expand your knowledge? Let's make learning exciting!</p>
                     </div>
                     <div class="welcome-illustration">
                         <img src="../assets/images/welcome-student.png" alt="Student studying illustration" class="welcome-img">
@@ -192,12 +185,7 @@
             }
         });
 
-        // Add search functionality
-        document.querySelector('.search-input').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            console.log('Searching for:', searchTerm);
-            // Implement search functionality here
-        });
+
 
         // Add entrance animation
         document.addEventListener('DOMContentLoaded', function() {
