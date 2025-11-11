@@ -4127,6 +4127,29 @@ h1, h2, h3{
     font-weight: 600;
 }
 
+.footer-link {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    padding: 2px 4px;
+    display: inline-block;
+}
+
+.footer-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 151, 220, 0.2);
+}
+
+.footer-link.name-link:hover {
+    background: rgba(0, 151, 220, 0.1);
+}
+
+.footer-link.org-link:hover {
+    background: rgba(0, 151, 220, 0.05);
+    color: #0097DC;
+}
+
 /* Responsive Footer */
 @media (max-width: 768px) {
     .sleek-footer {
