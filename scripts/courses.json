@@ -284,7 +284,7 @@
     "code": "CIS 441",
     "unit": 2,
     "level": 400,
-    "course_outline": "Hardware Aspect, Plotters Microfilm, Plotters Display, Graphic Tablets, Light Pens, Other Graphics Input Aids, Facsimile and it's Problems, Refresh Display, Refresh Huggers, Changing Images, Light Pen Interaction. In Drawing Algorithms, Circle/Ellipse Drawing Algorithms, Triangle and Polygon Pasteurization, 2d Geometrical Transformation, 3d Geometrical Transformations, Viewing in 3d(Orthographic Projection and Perspective Projection),Hidden Surface Elimination Algorithms, Surface Shading, Ray Tracing, Graphics Pipeline(Including Clipping),Texture Mapping.",
+    "course_outline": "Hardware Aspect, Plotters Microfilm, Plotters Display, Graphic Tablets, Light Pens, Other Graphics Input Aids, Facsimile and it's Problems, Refresh Display, Refresh Buffer, Changing Images, Light Pen Interaction. Line Drawing Algorithms, Circle/Ellipse Drawing Algorithms, Triangle and Polygon Pasteurization, 2d Geometrical Transformation, 3d Geometrical Transformations, Viewing in 3d(Orthographic Projection and Perspective Projection),Hidden Surface Elimination Algorithms, Surface Shading, Ray Tracing, Graphics Pipeline(Including Clipping),Texture Mapping.",
     "semester": "1st"
   },
   {
