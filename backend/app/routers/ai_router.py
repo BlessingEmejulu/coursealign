@@ -2,13 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException
 import sqlite3
 from app.database.database import get_db
 from app.schemas.schemas import ChatMessageCreate, ChatMessageResponse
-from app.auth.auth import get_current_active_user, User
+from app.auth.auth import get_current_active_user
 from app.services.ai_service import generate_ai_response, generate_quiz
 
 router = APIRouter(prefix="/api/ai", tags=["ai"])
 
 @router.post("/chat", response_model=ChatMessageResponse)
-def chat_with_tutor(message: ChatMessageCreate, current_user: User = Depends(get_current_active_user), conn: sqlite3.Connection = Depends(get_db)):
+def chat_with_tutor(message: ChatMessageCreate, current_user: dict = Depends(get_current_active_user), conn: sqlite3.Connection = Depends(get_db)):
     cursor = conn.cursor()
     context = "General Computer Science topics."
     
@@ -24,10 +24,10 @@ def chat_with_tutor(message: ChatMessageCreate, current_user: User = Depends(get
                 context += f" Outline: {outline['learning_objectives']} {outline['weekly_outline']}"
                 
     # Create or find active chat session (simplified for MVP)
-    cursor.execute("SELECT id FROM chat_sessions WHERE user_id = ? ORDER BY id DESC LIMIT 1", (current_user.id,))
+    cursor.execute("SELECT id FROM chat_sessions WHERE user_id = ? ORDER BY id DESC LIMIT 1", (current_user['id'],))
     session = cursor.fetchone()
     if not session:
-        cursor.execute("INSERT INTO chat_sessions (user_id) VALUES (?)", (current_user.id,))
+        cursor.execute("INSERT INTO chat_sessions (user_id) VALUES (?)", (current_user['id'],))
         conn.commit()
         session_id = cursor.lastrowid
     else:
@@ -48,7 +48,7 @@ def chat_with_tutor(message: ChatMessageCreate, current_user: User = Depends(get
     return ChatMessageResponse(id=ai_msg_id, session_id=session_id, role="ai", content=ai_text, created_at="now")
 
 @router.get("/quiz/{course_code}")
-def get_practice_quiz(course_code: str, current_user: User = Depends(get_current_active_user), conn: sqlite3.Connection = Depends(get_db)):
+def get_practice_quiz(course_code: str, current_user: dict = Depends(get_current_active_user), conn: sqlite3.Connection = Depends(get_db)):
     cursor = conn.cursor()
     cursor.execute("SELECT id, code, title, description FROM courses WHERE code = ?", (course_code.upper(),))
     course = cursor.fetchone()
