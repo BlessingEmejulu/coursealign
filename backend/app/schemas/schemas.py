@@ -7,6 +7,12 @@ class UserBase(BaseModel):
     username: str
     email: EmailStr
     role: str = "student"
+    level: Optional[str] = "100L"
+
+class UserUpdate(BaseModel):
+    username: Optional[str] = None
+    email: Optional[EmailStr] = None
+    level: Optional[str] = None
 
 class UserCreate(UserBase):
     password: str
@@ -55,6 +61,7 @@ class CourseOutlineCreate(BaseModel):
     learning_objectives: Optional[str] = None
     weekly_outline: Optional[str] = None
     recommended_textbooks: Optional[str] = None
+    description: Optional[str] = None
 
 class CourseOutlineResponse(CourseOutlineCreate):
     id: int
@@ -96,3 +103,9 @@ class ChatMessageResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class CourseAssignUpdate(BaseModel):
+    credit_unit: Optional[int] = None
+    level: Optional[str] = None
+    semester: Optional[str] = None
+    description: Optional[str] = None

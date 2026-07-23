@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Course Content - CourseAlign</title>
     <link rel="stylesheet" href="../css/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: { extend: { colors: { primary: '#49B6E5', secondary: '#263D5B', success: '#16A34A', warning: '#D97706', surface: '#FFFFFF', text: '#111827' } } }
-        }
-    </script>
+    
+    
+    <script src="../js/config.js"></script>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col text-text">
 
@@ -33,6 +30,10 @@
             <div class="doodle-border p-6 bg-surface">
                 <h3 class="text-xl font-bold mb-4">Course Outline</h3>
                 <form id="outlineForm" class="space-y-4">
+                    <div>
+                        <label class="block font-bold mb-1">Course Description</label>
+                        <textarea id="description" rows="3" class="doodle-input w-full" placeholder="Brief course description..."></textarea>
+                    </div>
                     <div>
                         <label class="block font-bold mb-1">Learning Objectives</label>
                         <textarea id="objectives" rows="3" class="doodle-input w-full" placeholder="What will students learn?"></textarea>
@@ -69,108 +70,6 @@
         </div>
     </main>
 
-    <script>
-        let currentCourseId = null;
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const courseCode = urlParams.get('code');
-
-            if (!courseCode) {
-                document.getElementById('course-title').innerText = "Invalid Course";
-                return;
-            }
-
-            try {
-                const res = await fetch(`http://localhost:8000/api/courses/${courseCode}`);
-                if (res.ok) {
-                    const course = await res.json();
-                    currentCourseId = course.id;
-                    document.getElementById('course-title').innerText = course.title;
-                    document.getElementById('course-code').innerText = course.code;
-                } else {
-                    document.getElementById('course-title').innerText = "Course Not Found";
-                }
-            } catch (err) {
-                console.error(err);
-                document.getElementById('course-title').innerText = "Error loading course";
-            }
-        });
-
-        // Save Outline
-        document.getElementById('outlineForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!currentCourseId) return;
-            const token = localStorage.getItem('token');
-
-            const payload = {
-                learning_objectives: document.getElementById('objectives').value,
-                weekly_outline: document.getElementById('weekly').value,
-                recommended_textbooks: document.getElementById('textbooks').value
-            };
-
-            try {
-                const btn = e.target.querySelector('button');
-                btn.innerText = "Saving...";
-                const res = await fetch(`http://localhost:8000/api/courses/${currentCourseId}/outline`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify(payload)
-                });
-                
-                if (res.ok) {
-                    alert("Outline saved successfully!");
-                } else {
-                    const err = await res.json();
-                    alert(err.detail || "Failed to save outline.");
-                }
-                btn.innerText = "Save Outline";
-            } catch (err) {
-                console.error(err);
-                alert("An error occurred.");
-            }
-        });
-
-        // Add Resource
-        document.getElementById('resourceForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!currentCourseId) return;
-            const token = localStorage.getItem('token');
-
-            const payload = {
-                title: document.getElementById('restitle').value,
-                file_path: document.getElementById('resurl').value,
-                type: "link"
-            };
-
-            try {
-                const btn = e.target.querySelector('button');
-                btn.innerText = "Adding...";
-                const res = await fetch(`http://localhost:8000/api/courses/${currentCourseId}/resources`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify(payload)
-                });
-                
-                if (res.ok) {
-                    alert("Resource added successfully!");
-                    e.target.reset();
-                } else {
-                    const err = await res.json();
-                    alert(err.detail || "Failed to add resource.");
-                }
-                btn.innerText = "Add Resource";
-            } catch (err) {
-                console.error(err);
-                alert("An error occurred.");
-            }
-        });
-    </script>
+    <script src="../js/lecturer-manage-course.js"></script>
 </body>
 </html>

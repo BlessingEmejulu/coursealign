@@ -4,6 +4,7 @@ from typing import List, Dict
 
 from app.database.database import get_db
 from app.auth.auth import require_role
+from app.schemas.schemas import CourseCreate, CourseResponse
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
@@ -78,3 +79,51 @@ def delete_course(course_id: int, db: sqlite3.Connection = Depends(get_db), curr
         raise HTTPException(status_code=404, detail="Course not found")
         
     return {"message": "Course deleted successfully"}
+
+@router.post('/courses', response_model=CourseResponse)
+def create_course(course: CourseCreate, db: sqlite3.Connection = Depends(get_db), current_user: dict = Depends(require_role('admin'))):
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM courses WHERE code = ?', (course.code,))
+    if cursor.fetchone():
+        raise HTTPException(status_code=400, detail='Course code already exists')
+    
+    cursor.execute(
+        '''INSERT INTO courses 
+        (code, title, description, credit_unit, level, semester, lecturer_name)
+        VALUES (?, ?, ?, ?, ?, ?, ?)''',
+        (course.code, course.title, course.description, course.credit_unit, 
+         course.level, course.semester, course.lecturer_name)
+    )
+    db.commit()
+    course_id = cursor.lastrowid
+    
+    cursor.execute('SELECT * FROM courses WHERE id = ?', (course_id,))
+    new_course = cursor.fetchone()
+    return dict(new_course)
+
+
+@router.put('/courses/{course_id}', response_model=CourseResponse)
+def update_course(course_id: int, course: CourseCreate, db: sqlite3.Connection = Depends(get_db), current_user: dict = Depends(require_role('admin'))):
+    cursor = db.cursor()
+    cursor.execute('SELECT * FROM courses WHERE id = ?', (course_id,))
+    if not cursor.fetchone():
+        raise HTTPException(status_code=404, detail='Course not found')
+    
+    # Ensure code uniqueness if changed
+    cursor.execute('SELECT * FROM courses WHERE code = ? AND id != ?', (course.code, course_id))
+    if cursor.fetchone():
+        raise HTTPException(status_code=400, detail='Course code already exists for another course')
+        
+    cursor.execute(
+        '''UPDATE courses SET 
+        code = ?, title = ?, description = ?, credit_unit = ?, level = ?, semester = ?, lecturer_name = ?
+        WHERE id = ?''',
+        (course.code, course.title, course.description, course.credit_unit, 
+         course.level, course.semester, course.lecturer_name, course_id)
+    )
+    db.commit()
+    
+    cursor.execute('SELECT * FROM courses WHERE id = ?', (course_id,))
+    updated_course = cursor.fetchone()
+    return dict(updated_course)
+

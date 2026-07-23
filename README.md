@@ -80,3 +80,8 @@ For convenience, two batch scripts have been provided in the root directory:
 ## Troubleshooting
 - **"Error communicating with AI"**: Make sure your Ollama software is running in the background and you have pulled the `gemma4:2b` model.
 - **"Failed to Fetch"**: This means your frontend cannot communicate with the backend. Ensure the backend terminal is open, running without errors, and hosted on port `8000`.
+
+
+
+admin_user
+AdminPassword123!

@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - CourseAlign</title>
     <link rel="stylesheet" href="../css/style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: { extend: { colors: { primary: '#49B6E5', secondary: '#263D5B', success: '#16A34A', warning: '#D97706', danger: '#DC2626', surface: '#FFFFFF', text: '#111827' } } }
-        }
-    </script>
+    
+    
+    <script src="../js/config.js"></script>
 </head>
 <body class="bg-gray-50 min-h-screen flex text-text">
 
@@ -35,6 +32,14 @@
                 <h1 id="welcome-msg" class="text-3xl md:text-4xl font-bold mb-2">Admin Portal</h1>
                 <p class="text-lg opacity-90">Manage system users and global courses.</p>
             </div>
+            <div class="relative z-10 hidden md:block">
+                <button onclick="openCreateModal()" class="doodle-button bg-surface text-secondary shadow-lg text-lg">+ Create New Course</button>
+            </div>
+        </div>
+
+        <!-- Mobile Create Button -->
+        <div class="mb-8 md:hidden">
+            <button onclick="openCreateModal()" class="doodle-button bg-secondary text-white w-full text-lg">+ Create New Course</button>
         </div>
 
         <!-- Metrics Grid -->
@@ -88,184 +93,92 @@
         </div>
     </main>
 
-    <script>
-        function parseJwt(token) {
-            try {
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join(''));
-                return JSON.parse(jsonPayload);
-            } catch(e) {
-                return null;
-            }
-        }
+    <!-- Create Course Modal -->
+    <div id="createModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+        <div class="doodle-border bg-surface p-6 max-w-lg w-full">
+            <h2 class="text-2xl font-bold mb-4">Create New Course</h2>
+            <form id="createCourseForm" class="space-y-4">
+                <div>
+                    <label class="block font-bold">Course Code</label>
+                    <input type="text" id="ccode" class="doodle-input w-full" placeholder="e.g. CSC101" required>
+                </div>
+                <div>
+                    <label class="block font-bold">Course Title</label>
+                    <input type="text" id="ctitle" class="doodle-input w-full" placeholder="e.g. Intro to Computer Science" required>
+                </div>
+                <div>
+                    <label class="block font-bold">Credit Units</label>
+                    <input type="number" id="cunit" class="doodle-input w-full" required min="0">
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-1">
+                        <label class="block font-bold">Level</label>
+                        <select id="clevel" class="doodle-input w-full">
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="300">300</option>
+                            <option value="400">400</option>
+                        </select>
+                    </div>
+                    <div class="flex-1">
+                        <label class="block font-bold">Semester</label>
+                        <select id="csem" class="doodle-input w-full">
+                            <option value="1st">1st Semester</option>
+                            <option value="2nd">2nd Semester</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex gap-4 pt-4">
+                    <button type="button" onclick="closeCreateModal()" class="doodle-button flex-1 bg-gray-200">Cancel</button>
+                    <button type="submit" class="doodle-button flex-1 bg-success text-white">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-        const token = localStorage.getItem('token');
+    <!-- Edit Course Modal -->
+    <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+        <div class="doodle-border bg-surface p-6 max-w-lg w-full">
+            <h2 class="text-2xl font-bold mb-4">Edit Course</h2>
+            <form id="editCourseForm" class="space-y-4">
+                <div>
+                    <label class="block font-bold">Course Code</label>
+                    <input type="text" id="edit_ccode" class="doodle-input w-full" required>
+                </div>
+                <div>
+                    <label class="block font-bold">Course Title</label>
+                    <input type="text" id="edit_ctitle" class="doodle-input w-full" required>
+                </div>
+                <div>
+                    <label class="block font-bold">Credit Units</label>
+                    <input type="number" id="edit_cunit" class="doodle-input w-full" required min="0">
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-1">
+                        <label class="block font-bold">Level</label>
+                        <select id="edit_clevel" class="doodle-input w-full">
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="300">300</option>
+                            <option value="400">400</option>
+                        </select>
+                    </div>
+                    <div class="flex-1">
+                        <label class="block font-bold">Semester</label>
+                        <select id="edit_csem" class="doodle-input w-full">
+                            <option value="1st">1st Semester</option>
+                            <option value="2nd">2nd Semester</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex gap-4 pt-4">
+                    <button type="button" onclick="closeEditModal()" class="doodle-button flex-1 bg-gray-200">Cancel</button>
+                    <button type="submit" class="doodle-button flex-1 bg-primary text-white">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            if (!token) window.location.href = 'login.html';
-            const payload = parseJwt(token);
-            if (payload && payload.role !== 'admin') {
-                alert('Unauthorized access.');
-                window.location.href = 'login.html';
-            }
-            if (payload && payload.sub) {
-                document.getElementById('welcome-msg').innerText = `Admin Portal - Welcome ${payload.sub}`;
-            }
-            
-            fetchUsers();
-            fetchCourses();
-        });
-
-        function logout() {
-            localStorage.removeItem('token');
-            window.location.href = 'index.html';
-        }
-
-        async function fetchUsers() {
-            try {
-                const res = await fetch('http://localhost:8000/api/admin/users', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (res.ok) {
-                    const users = await res.json();
-                    document.getElementById('totalUsersCount').innerText = users.length;
-                    
-                    const tbody = document.getElementById('usersTableBody');
-                    tbody.innerHTML = '';
-                    if (users.length === 0) {
-                        tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center">No users found.</td></tr>';
-                        return;
-                    }
-
-                    users.forEach(u => {
-                        const tr = document.createElement('tr');
-                        tr.className = "border-b border-gray-200 hover:bg-gray-50";
-                        tr.innerHTML = `
-                            <td class="p-4">${u.id}</td>
-                            <td class="p-4 font-bold">${u.username}</td>
-                            <td class="p-4 text-gray-600">${u.email}</td>
-                            <td class="p-4">
-                                <select class="doodle-input py-1 px-2 text-sm role-select" data-user-id="${u.id}">
-                                    <option value="student" ${u.role === 'student' ? 'selected' : ''}>Student</option>
-                                    <option value="lecturer" ${u.role === 'lecturer' ? 'selected' : ''}>Lecturer</option>
-                                    <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
-                                </select>
-                            </td>
-                            <td class="p-4 text-right space-x-2">
-                                <button onclick="updateRole(${u.id})" class="text-sm bg-primary text-white px-3 py-1 doodle-border font-bold hover:bg-opacity-90">Save Role</button>
-                                <button onclick="deleteUser(${u.id}, '${u.username}')" class="text-sm bg-danger text-white px-3 py-1 doodle-border font-bold hover:bg-opacity-90">Delete</button>
-                            </td>
-                        `;
-                        tbody.appendChild(tr);
-                    });
-                }
-            } catch (error) {
-                console.error("Error fetching users", error);
-            }
-        }
-
-        async function fetchCourses() {
-            try {
-                const res = await fetch('http://localhost:8000/api/admin/courses', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (res.ok) {
-                    const courses = await res.json();
-                    document.getElementById('totalCoursesCount').innerText = courses.length;
-                    
-                    const tbody = document.getElementById('coursesTableBody');
-                    tbody.innerHTML = '';
-                    if (courses.length === 0) {
-                        tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center">No courses found.</td></tr>';
-                        return;
-                    }
-
-                    courses.forEach(c => {
-                        const tr = document.createElement('tr');
-                        tr.className = "border-b border-gray-200 hover:bg-gray-50";
-                        tr.innerHTML = `
-                            <td class="p-4">${c.id}</td>
-                            <td class="p-4 font-bold text-primary">${c.code}</td>
-                            <td class="p-4">${c.title}</td>
-                            <td class="p-4 italic">${c.lecturer_name || 'TBA'}</td>
-                            <td class="p-4 text-right">
-                                <button onclick="deleteCourse(${c.id}, '${c.code}')" class="text-sm bg-danger text-white px-3 py-1 doodle-border font-bold hover:bg-opacity-90">Delete</button>
-                            </td>
-                        `;
-                        tbody.appendChild(tr);
-                    });
-                }
-            } catch (error) {
-                console.error("Error fetching courses", error);
-            }
-        }
-
-        async function updateRole(userId) {
-            const select = document.querySelector(`.role-select[data-user-id="${userId}"]`);
-            const newRole = select.value;
-            try {
-                const res = await fetch(`http://localhost:8000/api/admin/users/${userId}/role`, {
-                    method: 'PUT',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}` 
-                    },
-                    body: JSON.stringify({ role: newRole })
-                });
-                if (res.ok) {
-                    alert(`User role updated to ${newRole}`);
-                } else {
-                    const err = await res.json();
-                    alert(err.detail || "Failed to update role");
-                }
-            } catch (e) {
-                console.error(e);
-                alert("Error communicating with server.");
-            }
-        }
-
-        async function deleteUser(userId, username) {
-            if (!confirm(`Are you sure you want to permanently delete user '${username}'?`)) return;
-            try {
-                const res = await fetch(`http://localhost:8000/api/admin/users/${userId}`, {
-                    method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (res.ok) {
-                    alert('User deleted.');
-                    fetchUsers();
-                } else {
-                    const err = await res.json();
-                    alert(err.detail || "Failed to delete user");
-                }
-            } catch (e) {
-                console.error(e);
-                alert("Error communicating with server.");
-            }
-        }
-
-        async function deleteCourse(courseId, code) {
-            if (!confirm(`Are you sure you want to permanently delete course '${code}'?`)) return;
-            try {
-                const res = await fetch(`http://localhost:8000/api/admin/courses/${courseId}`, {
-                    method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (res.ok) {
-                    alert('Course deleted.');
-                    fetchCourses();
-                } else {
-                    const err = await res.json();
-                    alert(err.detail || "Failed to delete course");
-                }
-            } catch (e) {
-                console.error(e);
-                alert("Error communicating with server.");
-            }
-        }
-    </script>
+    <script src="../js/admin-dashboard.js"></script>
 </body>
 </html>

@@ -1,0 +1,11 @@
+{
+  "name": "coursealign-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for CourseAlign",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./css/tailwind.css -o ./css/style.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

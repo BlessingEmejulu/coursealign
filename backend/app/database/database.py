@@ -28,6 +28,7 @@ def init_db():
         email TEXT UNIQUE NOT NULL,
         hashed_password TEXT NOT NULL,
         role TEXT DEFAULT 'student',
+        level TEXT DEFAULT '100L',
         is_active BOOLEAN DEFAULT 1,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )

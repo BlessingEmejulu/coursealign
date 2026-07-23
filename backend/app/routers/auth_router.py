@@ -4,8 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 
 from app.database.database import get_db
-from app.schemas.schemas import UserCreate, UserResponse, Token, PasswordResetRequest
-from app.auth.auth import get_password_hash, verify_password, create_access_token
+from app.schemas.schemas import UserCreate, UserResponse, Token, PasswordResetRequest, UserUpdate
+from app.auth.auth import get_password_hash, verify_password, create_access_token, get_current_active_user
 from app.core.config import settings
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
@@ -74,3 +74,37 @@ def reset_password(req: PasswordResetRequest, db: sqlite3.Connection = Depends(g
     db.commit()
     
     return {"message": "Password successfully reset"}
+
+@router.get("/me", response_model=UserResponse)
+def read_users_me(current_user: dict = Depends(get_current_active_user)):
+    return current_user
+
+@router.put("/me", response_model=UserResponse)
+def update_user_me(user_update: UserUpdate, current_user: dict = Depends(get_current_active_user), db: sqlite3.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    
+    # Update fields that are provided
+    update_data = user_update.dict(exclude_unset=True)
+    if not update_data:
+        return current_user
+        
+    set_clauses = []
+    values = []
+    
+    for key, value in update_data.items():
+        set_clauses.append(f"{key} = ?")
+        values.append(value)
+        
+    values.append(current_user['id'])
+    
+    query = f"UPDATE users SET {', '.join(set_clauses)} WHERE id = ?"
+    try:
+        cursor.execute(query, tuple(values))
+        db.commit()
+    except sqlite3.IntegrityError:
+        raise HTTPException(status_code=400, detail="Username or email already exists")
+        
+    cursor.execute("SELECT * FROM users WHERE id = ?", (current_user['id'],))
+    updated_user = cursor.fetchone()
+    
+    return dict(updated_user)

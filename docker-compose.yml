@@ -2,19 +2,42 @@ version: '3.8'
 
 services:
   backend:
-    build: .
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app/backend
+      - ./backend/coursealign.db:/app/coursealign.db
     environment:
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
-      - SECRET_KEY=your_super_secret_key_change_in_prod
+      - OLLAMA_URL=http://ollama:11434/api/generate
+      - OLLAMA_CHAT_URL=http://ollama:11434/api/chat
+      - E2B_API_KEY=${E2B_API_KEY:-}
+    depends_on:
+      - ollama
 
-  # A simple static file server for the frontend
   frontend:
-    image: nginx:alpine
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "80:80"
+    depends_on:
+      - backend
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
     volumes:
-      - ./frontend:/usr/share/nginx/html
+      - ollama_data:/root/.ollama
+    entrypoint: >
+      sh -c "
+      ollama serve &
+      sleep 10 &&
+      ollama run gemma:2b &&
+      wait
+      "
+
+volumes:
+  ollama_data:

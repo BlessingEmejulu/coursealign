@@ -1,0 +1,88 @@
+/* Hand Drawn (Doodle Design System) Styles */
+@import url('https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&family=JetBrains+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #49B6E5;
+  --secondary: #263D5B;
+  --success: #16A34A;
+  --warning: #D97706;
+  --danger: #DC2626;
+  --surface: #FFFFFF;
+  --text: #111827;
+}
+
+body {
+  font-family: 'Delius Swash Caps', cursive;
+  color: var(--text);
+  background-color: #f9fafb;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Doodle Box CSS Trick */
+.doodle-border {
+  border: 2px solid var(--text);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background-color: var(--surface);
+  box-shadow: 4px 4px 0px rgba(17, 24, 39, 0.1);
+  transition: all 0.2s ease;
+}
+
+.doodle-border:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px rgba(17, 24, 39, 0.15);
+  border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+}
+
+.doodle-button {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border: 2px solid var(--text);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background-color: var(--primary);
+  color: var(--text);
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px rgba(17, 24, 39, 0.2);
+  transition: all 0.2s ease;
+}
+
+.doodle-button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px rgba(17, 24, 39, 0.3);
+  border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+}
+
+.doodle-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px rgba(17, 24, 39, 0.2);
+}
+
+.doodle-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--text);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background-color: var(--surface);
+  color: var(--text);
+  outline: none;
+}
+
+.doodle-input:focus {
+  border-color: var(--primary);
+  border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+}
+
+/* Utilities for semantic colors with doodle borders */
+.bg-doodle-primary { background-color: var(--primary); }
+.bg-doodle-secondary { background-color: var(--secondary); color: white; border-color: var(--secondary); }
+.bg-doodle-success { background-color: var(--success); }
+.bg-doodle-warning { background-color: var(--warning); }
+.bg-doodle-danger { background-color: var(--danger); }

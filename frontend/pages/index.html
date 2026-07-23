@@ -12,38 +12,8 @@
     <link rel="manifest" href="../manifest.json">
     
     <!-- Tailwind CSS (Play CDN for Vanilla HTML/JS setup) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#49B6E5',
-                        secondary: '#263D5B',
-                        success: '#16A34A',
-                        warning: '#D97706',
-                        danger: '#DC2626',
-                        surface: '#FFFFFF',
-                        text: '#111827',
-                    },
-                    fontFamily: {
-                        sans: ['"Delius Swash Caps"', 'cursive'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    animation: {
-                        'bounce-slow': 'bounce 3s infinite',
-                        'wiggle': 'wiggle 1s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        wiggle: {
-                            '0%, 100%': { transform: 'rotate(-3deg)' },
-                            '50%': { transform: 'rotate(3deg)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    
+    
     <style>
         /* Additional decorative styles */
         .blob-bg {
@@ -58,6 +28,7 @@
             height: 10px;
         }
     </style>
+    <script src="../js/config.js"></script>
 </head>
 <body class="bg-[#faf9f6] min-h-screen flex flex-col items-center overflow-x-hidden">
     
@@ -315,60 +286,6 @@
         </div>
     </div>
 
-    <script>
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('../sw.js')
-                    .then(registration => console.log('SW registered:', registration))
-                    .catch(error => console.error('SW registration failed:', error));
-            });
-        }
-
-        // PWA Install Prompt Logic
-        let deferredPrompt;
-        const installBanner = document.getElementById('pwa-install-banner');
-        const installBtn = document.getElementById('pwa-install-btn');
-        const dismissBtn = document.getElementById('pwa-dismiss-btn');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent Chrome 67 and earlier from automatically showing the prompt
-            e.preventDefault();
-            // Stash the event so it can be triggered later.
-            deferredPrompt = e;
-            
-            // Show the custom banner
-            installBanner.classList.remove('hidden');
-            // Small delay to allow the element to become visible before translating
-            setTimeout(() => {
-                installBanner.classList.remove('translate-y-full');
-            }, 10);
-        });
-
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                // Show the browser prompt
-                deferredPrompt.prompt();
-                // Wait for the user to respond to the prompt
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                // We've used the prompt, and can't use it again, throw it away
-                deferredPrompt = null;
-            }
-            // Hide the banner
-            installBanner.classList.add('translate-y-full');
-            setTimeout(() => installBanner.classList.add('hidden'), 300);
-        });
-
-        dismissBtn.addEventListener('click', () => {
-            // Hide the banner without installing
-            installBanner.classList.add('translate-y-full');
-            setTimeout(() => installBanner.classList.add('hidden'), 300);
-        });
-    </script>
+    <script src="../js/index.js"></script>
 </body>
 </html>
