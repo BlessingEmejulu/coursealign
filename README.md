@@ -1,17 +1,22 @@
 # CourseAlign 🎓
 
-CourseAlign is a modern, AI-powered Course Outline Management and Learning Support System designed specifically for the Department of Computer Science at Chukwuemeka Odumegwu Ojukwu University (COOU). It features an interactive Hand-Drawn "Doodle" Design System, a full RESTful backend, and deep integration with the Google Gemini API to serve as a 24/7 AI Tutor.
+![CourseAlign Landing Page](assets/images/screenshot.png)
+*(Please save a screenshot of your landing page as `assets/images/screenshot.png` to display it here!)*
+
+CourseAlign is a modern, AI-powered Course Outline Management and Learning Support System designed specifically for the Department of Computer Science at Chukwuemeka Odumegwu Ojukwu University (COOU). It features an interactive Hand-Drawn "Doodle" Design System, a full RESTful backend, and deep integration with a local **Gemma 4** model via Ollama to serve as a 100% free and private 24/7 AI Tutor.
 
 ## 🌟 Key Features
 - **Centralized Course Catalog**: Browse official outlines, credit units, and course objectives.
-- **AI Tutor (Gemini API)**: Stuck on a concept? Chat with an AI tutor directly from your course page.
-- **Practice Quizzes**: Test your knowledge before exams with AI-generated quizzes.
-- **Student Dashboard**: Track your bookmarked courses, recent chats, and quiz scores.
+- **Admin Dashboard**: Manage user roles (Promote students to lecturers or admins) and delete deprecated courses globally.
+- **Lecturer Portal**: Lecturers can securely upload their course outlines, syllabus, and verified resource links.
+- **AI Tutor (Local Gemma 4)**: Stuck on a concept? Chat securely and privately with a local AI tutor directly from your course page.
+- **Practice Quizzes**: Test your knowledge before exams with dynamic, AI-generated quizzes graded instantly.
+- **Progressive Web App (PWA)**: Installable directly to your device for native-like access and offline capabilities.
 
 ## 🛠️ Technology Stack
-- **Frontend**: Vanilla HTML/JS, Tailwind CSS (CDN), Custom CSS (Hand Drawn Design System).
-- **Backend**: Python 3.13+, FastAPI, SQLAlchemy (SQLite), JWT Authentication.
-- **AI Integration**: Google Generative AI (Gemini 1.5 Flash).
+- **Frontend**: Vanilla HTML/JS, Tailwind CSS (CDN), Custom CSS (Hand-Drawn Design System).
+- **Backend**: Python 3.13+, FastAPI, raw SQLite, JWT Authentication.
+- **AI Integration**: Local Ollama server running `gemma4:2b`.
 - **Deployment Ready**: Included `Dockerfile` and `docker-compose.yml`.
 
 ---
@@ -21,42 +26,39 @@ CourseAlign is a modern, AI-powered Course Outline Management and Learning Suppo
 Follow these steps to run the complete Full-Stack application locally.
 
 ### Prerequisites
-- Python 3.10 or newer installed.
-- (Optional) Docker if you prefer containerized deployment.
+- Python 3.10+ installed.
+- [Ollama](https://ollama.com/) installed and running locally.
 
-### 1. Setting up the Backend
-The backend serves the API endpoints and connects to the database.
+### 1. Setting up the Local AI Engine (Ollama)
+CourseAlign relies on Gemma 4 running locally to power the AI Tutor and Quiz systems.
+1. Install Ollama and start the background service.
+2. Open a terminal and run the following to download the model (it may take a few minutes):
+   ```bash
+   ollama run gemma4:2b
+   ```
+3. Once you see the prompt `>>>`, you can close it. Ollama is now serving the API on `http://localhost:11434`.
 
+### 2. Setting up the Backend API
 1. Open your terminal or Command Prompt.
-2. Navigate to the `backend` directory:
+2. Navigate to the project root and start the virtual environment (if you have one) or install requirements:
    ```bash
    cd backend
+   pip install fastapi uvicorn pydantic passlib bcrypt python-jose python-multipart requests
    ```
-3. Create a virtual environment (recommended):
+3. *(Optional)* Create an Admin user to access the Admin portal:
    ```bash
-   python -m venv env
+   python create_admin.py
    ```
-4. Activate the virtual environment:
-   - **Windows:** `env\Scripts\activate`
-   - **Mac/Linux:** `source env/bin/activate`
-5. Install the required dependencies:
-   ```bash
-   pip install fastapi uvicorn sqlalchemy pydantic passlib bcrypt python-jose python-multipart google-generativeai
-   ```
-6. Set your Gemini API Key (Required for AI Features):
-   - **Windows (Command Prompt):** `set GEMINI_API_KEY=your_actual_key_here`
-   - **Windows (PowerShell):** `$env:GEMINI_API_KEY="your_actual_key_here"`
-   - **Mac/Linux:** `export GEMINI_API_KEY=your_actual_key_here`
-7. Start the server:
+4. Start the backend server:
    ```bash
    python -m uvicorn main:app --reload
    ```
-   *You should see a message indicating the application startup is complete and running on `http://127.0.0.1:8000`.*
+   *You should see a message indicating the app is running on `http://127.0.0.1:8000`.*
 
-### 2. Setting up the Frontend
-The frontend consists of static files that need to be served over HTTP to prevent CORS errors and allow the Service Worker to function properly.
+### 3. Setting up the Frontend
+The frontend consists of static files that need to be served over HTTP to prevent CORS errors and allow the Service Worker/PWA to function properly.
 
-1. Open a **new** terminal window (keep the backend running in the first one).
+1. Open a **new** terminal window.
 2. Navigate to the `frontend` directory:
    ```bash
    cd frontend
@@ -73,10 +75,8 @@ The frontend consists of static files that need to be served over HTTP to preven
 ## 💡 Quick Start Scripts (Windows Only)
 For convenience, two batch scripts have been provided in the root directory:
 - **`start_backend.bat`**: Double-click this to automatically start the FastAPI server.
-- **`start_frontend.bat`**: Double-click this to start the UI server and automatically open the application in your default browser.
-
-*(Note: Ensure your dependencies are installed via pip before using the quick start scripts).*
+- **`start_frontend.bat`**: Double-click this to start the UI server and automatically open the application in your browser.
 
 ## Troubleshooting
-- **"Failed to Fetch" Error**: This means your frontend cannot communicate with the backend. Ensure the backend terminal is open, running without errors, and hosted on port `8000`.
-- **Hanging Server / No "Startup Complete" Message**: If you run `uvicorn main:app --reload` and it gets stuck at "Started reloader process", run it without `--reload` (`python -m uvicorn main:app`) to reveal the underlying Python error (e.g., a missing dependency).
+- **"Error communicating with AI"**: Make sure your Ollama software is running in the background and you have pulled the `gemma4:2b` model.
+- **"Failed to Fetch"**: This means your frontend cannot communicate with the backend. Ensure the backend terminal is open, running without errors, and hosted on port `8000`.
