@@ -1,0 +1,3 @@
+@echo off
+echo Opening CourseAlign directly in your browser...
+start frontend\pages\index.html

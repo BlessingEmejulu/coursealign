@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CourseAlign</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { primary: '#49B6E5', secondary: '#263D5B', success: '#16A34A', warning: '#D97706', danger: '#DC2626', surface: '#FFFFFF', text: '#111827' } } }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex text-text">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-surface h-screen sticky top-0 border-r-2 border-text border-dashed p-6 flex flex-col hidden md:flex">
+        <div class="text-2xl font-bold text-secondary mb-10 text-center doodle-border p-2">CourseAlign</div>
+        
+        <nav class="flex-grow space-y-4">
+            <a href="admin-dashboard.html" class="block p-3 doodle-border bg-primary text-text font-bold">Admin Portal</a>
+        </nav>
+        
+        <div class="mt-auto">
+            <button onclick="logout()" class="w-full text-center text-danger font-bold hover:underline">Logout</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-4 md:p-8 overflow-y-auto">
+        
+        <div class="doodle-border bg-secondary text-white p-6 md:p-10 mb-8 relative overflow-hidden flex justify-between items-center">
+            <div class="relative z-10">
+                <h1 id="welcome-msg" class="text-3xl md:text-4xl font-bold mb-2">Admin Portal</h1>
+                <p class="text-lg opacity-90">Manage system users and global courses.</p>
+            </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="doodle-border p-6 bg-surface border-primary">
+                <h3 class="text-lg font-bold text-gray-500 uppercase tracking-wide">Total Users</h3>
+                <p id="totalUsersCount" class="text-4xl font-bold mt-2">...</p>
+            </div>
+            <div class="doodle-border p-6 bg-surface border-success">
+                <h3 class="text-lg font-bold text-gray-500 uppercase tracking-wide">Total Courses</h3>
+                <p id="totalCoursesCount" class="text-4xl font-bold mt-2">...</p>
+            </div>
+        </div>
+
+        <!-- Manage Users -->
+        <h3 class="text-2xl font-bold text-secondary mb-4">Manage Users</h3>
+        <div class="doodle-border bg-surface overflow-x-auto mb-10">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-100 border-b-2 border-dashed border-text">
+                        <th class="p-4 font-bold">ID</th>
+                        <th class="p-4 font-bold">Username</th>
+                        <th class="p-4 font-bold">Email</th>
+                        <th class="p-4 font-bold">Role</th>
+                        <th class="p-4 font-bold text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <tr><td colspan="5" class="p-4 text-center">Loading users...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Manage Courses -->
+        <h3 class="text-2xl font-bold text-secondary mb-4">Manage Courses</h3>
+        <div class="doodle-border bg-surface overflow-x-auto mb-10">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-100 border-b-2 border-dashed border-text">
+                        <th class="p-4 font-bold">ID</th>
+                        <th class="p-4 font-bold">Code</th>
+                        <th class="p-4 font-bold">Title</th>
+                        <th class="p-4 font-bold">Lecturer</th>
+                        <th class="p-4 font-bold text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="coursesTableBody">
+                    <tr><td colspan="5" class="p-4 text-center">Loading courses...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload);
+            } catch(e) {
+                return null;
+            }
+        }
+
+        const token = localStorage.getItem('token');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!token) window.location.href = 'login.html';
+            const payload = parseJwt(token);
+            if (payload && payload.role !== 'admin') {
+                alert('Unauthorized access.');
+                window.location.href = 'login.html';
+            }
+            if (payload && payload.sub) {
+                document.getElementById('welcome-msg').innerText = `Admin Portal - Welcome ${payload.sub}`;
+            }
+            
+            fetchUsers();
+            fetchCourses();
+        });
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        }
+
+        async function fetchUsers() {
+            try {
+                const res = await fetch('http://localhost:8000/api/admin/users', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const users = await res.json();
+                    document.getElementById('totalUsersCount').innerText = users.length;
+                    
+                    const tbody = document.getElementById('usersTableBody');
+                    tbody.innerHTML = '';
+                    if (users.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center">No users found.</td></tr>';
+                        return;
+                    }
+
+                    users.forEach(u => {
+                        const tr = document.createElement('tr');
+                        tr.className = "border-b border-gray-200 hover:bg-gray-50";
+                        tr.innerHTML = `
+                            <td class="p-4">${u.id}</td>
+                            <td class="p-4 font-bold">${u.username}</td>
+                            <td class="p-4 text-gray-600">${u.email}</td>
+                            <td class="p-4">
+                                <select class="doodle-input py-1 px-2 text-sm role-select" data-user-id="${u.id}">
+                                    <option value="student" ${u.role === 'student' ? 'selected' : ''}>Student</option>
+                                    <option value="lecturer" ${u.role === 'lecturer' ? 'selected' : ''}>Lecturer</option>
+                                    <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
+                                </select>
+                            </td>
+                            <td class="p-4 text-right space-x-2">
+                                <button onclick="updateRole(${u.id})" class="text-sm bg-primary text-white px-3 py-1 doodle-border font-bold hover:bg-opacity-90">Save Role</button>
+                                <button onclick="deleteUser(${u.id}, '${u.username}')" class="text-sm bg-danger text-white px-3 py-1 doodle-border font-bold hover:bg-opacity-90">Delete</button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching users", error);
+            }
+        }
+
+        async function fetchCourses() {
+            try {
+                const res = await fetch('http://localhost:8000/api/admin/courses', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const courses = await res.json();
+                    document.getElementById('totalCoursesCount').innerText = courses.length;
+                    
+                    const tbody = document.getElementById('coursesTableBody');
+                    tbody.innerHTML = '';
+                    if (courses.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center">No courses found.</td></tr>';
+                        return;
+                    }
+
+                    courses.forEach(c => {
+                        const tr = document.createElement('tr');
+                        tr.className = "border-b border-gray-200 hover:bg-gray-50";
+                        tr.innerHTML = `
+                            <td class="p-4">${c.id}</td>
+                            <td class="p-4 font-bold text-primary">${c.code}</td>
+                            <td class="p-4">${c.title}</td>
+                            <td class="p-4 italic">${c.lecturer_name || 'TBA'}</td>
+                            <td class="p-4 text-right">
+                                <button onclick="deleteCourse(${c.id}, '${c.code}')" class="text-sm bg-danger text-white px-3 py-1 doodle-border font-bold hover:bg-opacity-90">Delete</button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching courses", error);
+            }
+        }
+
+        async function updateRole(userId) {
+            const select = document.querySelector(`.role-select[data-user-id="${userId}"]`);
+            const newRole = select.value;
+            try {
+                const res = await fetch(`http://localhost:8000/api/admin/users/${userId}/role`, {
+                    method: 'PUT',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` 
+                    },
+                    body: JSON.stringify({ role: newRole })
+                });
+                if (res.ok) {
+                    alert(`User role updated to ${newRole}`);
+                } else {
+                    const err = await res.json();
+                    alert(err.detail || "Failed to update role");
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Error communicating with server.");
+            }
+        }
+
+        async function deleteUser(userId, username) {
+            if (!confirm(`Are you sure you want to permanently delete user '${username}'?`)) return;
+            try {
+                const res = await fetch(`http://localhost:8000/api/admin/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    alert('User deleted.');
+                    fetchUsers();
+                } else {
+                    const err = await res.json();
+                    alert(err.detail || "Failed to delete user");
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Error communicating with server.");
+            }
+        }
+
+        async function deleteCourse(courseId, code) {
+            if (!confirm(`Are you sure you want to permanently delete course '${code}'?`)) return;
+            try {
+                const res = await fetch(`http://localhost:8000/api/admin/courses/${courseId}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    alert('Course deleted.');
+                    fetchCourses();
+                } else {
+                    const err = await res.json();
+                    alert(err.detail || "Failed to delete course");
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Error communicating with server.");
+            }
+        }
+    </script>
+</body>
+</html>

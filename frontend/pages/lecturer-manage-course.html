@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Course Content - CourseAlign</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { primary: '#49B6E5', secondary: '#263D5B', success: '#16A34A', warning: '#D97706', surface: '#FFFFFF', text: '#111827' } } }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col text-text">
+
+    <header class="w-full p-4 border-b-2 border-text border-dashed bg-surface flex justify-between items-center sticky top-0 z-10">
+        <div class="flex items-center gap-4">
+            <a href="lecturer-dashboard.html" class="doodle-button bg-gray-100 px-3 py-1">Back to Dashboard</a>
+            <h1 class="text-xl font-bold text-secondary">Manage Course Content</h1>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-5xl mx-auto p-4 md:p-8">
+        <div class="mb-8">
+            <h2 id="course-title" class="text-3xl font-bold text-secondary mb-2">Loading...</h2>
+            <p id="course-code" class="text-gray-600 font-bold">...</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Outline Form -->
+            <div class="doodle-border p-6 bg-surface">
+                <h3 class="text-xl font-bold mb-4">Course Outline</h3>
+                <form id="outlineForm" class="space-y-4">
+                    <div>
+                        <label class="block font-bold mb-1">Learning Objectives</label>
+                        <textarea id="objectives" rows="3" class="doodle-input w-full" placeholder="What will students learn?"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-1">Weekly Outline</label>
+                        <textarea id="weekly" rows="4" class="doodle-input w-full" placeholder="Week 1: Intro\nWeek 2: Advanced topics..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-1">Recommended Textbooks</label>
+                        <textarea id="textbooks" rows="2" class="doodle-input w-full" placeholder="e.g. Clean Code by Robert C. Martin"></textarea>
+                    </div>
+                    <button type="submit" class="doodle-button w-full bg-primary text-text">Save Outline</button>
+                </form>
+            </div>
+
+            <!-- Resources Form -->
+            <div class="doodle-border p-6 bg-surface">
+                <h3 class="text-xl font-bold mb-4">Add Resource Link</h3>
+                <p class="text-sm text-gray-600 mb-4">Share external links, Google Drive folders, or YouTube videos with your students.</p>
+                <form id="resourceForm" class="space-y-4">
+                    <div>
+                        <label class="block font-bold mb-1">Resource Title</label>
+                        <input type="text" id="restitle" class="doodle-input w-full" placeholder="e.g. Week 1 Slides" required>
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-1">URL / Link</label>
+                        <input type="url" id="resurl" class="doodle-input w-full" placeholder="https://" required>
+                    </div>
+                    <button type="submit" class="doodle-button w-full bg-success text-white">Add Resource</button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        let currentCourseId = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseCode = urlParams.get('code');
+
+            if (!courseCode) {
+                document.getElementById('course-title').innerText = "Invalid Course";
+                return;
+            }
+
+            try {
+                const res = await fetch(`http://localhost:8000/api/courses/${courseCode}`);
+                if (res.ok) {
+                    const course = await res.json();
+                    currentCourseId = course.id;
+                    document.getElementById('course-title').innerText = course.title;
+                    document.getElementById('course-code').innerText = course.code;
+                } else {
+                    document.getElementById('course-title').innerText = "Course Not Found";
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('course-title').innerText = "Error loading course";
+            }
+        });
+
+        // Save Outline
+        document.getElementById('outlineForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentCourseId) return;
+            const token = localStorage.getItem('token');
+
+            const payload = {
+                learning_objectives: document.getElementById('objectives').value,
+                weekly_outline: document.getElementById('weekly').value,
+                recommended_textbooks: document.getElementById('textbooks').value
+            };
+
+            try {
+                const btn = e.target.querySelector('button');
+                btn.innerText = "Saving...";
+                const res = await fetch(`http://localhost:8000/api/courses/${currentCourseId}/outline`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (res.ok) {
+                    alert("Outline saved successfully!");
+                } else {
+                    const err = await res.json();
+                    alert(err.detail || "Failed to save outline.");
+                }
+                btn.innerText = "Save Outline";
+            } catch (err) {
+                console.error(err);
+                alert("An error occurred.");
+            }
+        });
+
+        // Add Resource
+        document.getElementById('resourceForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentCourseId) return;
+            const token = localStorage.getItem('token');
+
+            const payload = {
+                title: document.getElementById('restitle').value,
+                file_path: document.getElementById('resurl').value,
+                type: "link"
+            };
+
+            try {
+                const btn = e.target.querySelector('button');
+                btn.innerText = "Adding...";
+                const res = await fetch(`http://localhost:8000/api/courses/${currentCourseId}/resources`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (res.ok) {
+                    alert("Resource added successfully!");
+                    e.target.reset();
+                } else {
+                    const err = await res.json();
+                    alert(err.detail || "Failed to add resource.");
+                }
+                btn.innerText = "Add Resource";
+            } catch (err) {
+                console.error(err);
+                alert("An error occurred.");
+            }
+        });
+    </script>
+</body>
+</html>

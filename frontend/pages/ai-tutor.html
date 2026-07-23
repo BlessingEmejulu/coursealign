@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor - CourseAlign</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { primary: '#49B6E5', secondary: '#263D5B', surface: '#FFFFFF', text: '#111827' } } }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col h-screen text-text">
+
+    <!-- Header -->
+    <header class="w-full p-4 border-b-2 border-text border-dashed bg-surface flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="dashboard.html" class="doodle-button bg-gray-100 px-3 py-1">Back</a>
+            <h1 class="text-xl font-bold text-secondary">AI Tutor</h1>
+        </div>
+        <div class="text-sm">
+            Context: <select id="courseContext" class="doodle-input py-1 px-2 text-sm max-w-[150px] inline-block"><option value="">General CS</option></select>
+        </div>
+    </header>
+
+    <!-- Chat Area -->
+    <main class="flex-grow p-4 overflow-y-auto flex flex-col gap-4 max-w-4xl mx-auto w-full">
+        <!-- AI Message -->
+        <div class="flex items-start gap-4 w-full">
+            <div class="w-10 h-10 rounded-full bg-primary flex-shrink-0 border-2 border-text flex items-center justify-center font-bold text-white">AI</div>
+            <div class="doodle-border p-4 bg-surface max-w-[80%]">
+                <p>Hello! I am your CourseAlign AI Tutor. I can help explain computer science concepts, summarize course outlines, or generate practice questions. What would you like to learn today?</p>
+            </div>
+        </div>
+
+        <!-- User Message -->
+        <div class="flex items-start gap-4 w-full flex-row-reverse">
+            <div class="w-10 h-10 rounded-full bg-secondary flex-shrink-0 border-2 border-text flex items-center justify-center font-bold text-white">Me</div>
+            <div class="doodle-border p-4 bg-blue-50 max-w-[80%]">
+                <p>Can you explain the difference between a Process and a Thread in operating systems?</p>
+            </div>
+        </div>
+
+        <!-- AI Message -->
+        <div class="flex items-start gap-4 w-full">
+            <div class="w-10 h-10 rounded-full bg-primary flex-shrink-0 border-2 border-text flex items-center justify-center font-bold text-white">AI</div>
+            <div class="doodle-border p-4 bg-surface max-w-[80%]">
+                <p>Of course!</p>
+                <ul class="list-disc pl-5 mt-2 space-y-1">
+                    <li><strong>Process:</strong> An executing program. It has its own isolated memory space. It is considered a "heavyweight" unit of execution.</li>
+                    <li><strong>Thread:</strong> A smaller unit of execution within a process. Multiple threads can exist within the same process and share the same memory space and resources. This makes them "lightweight".</li>
+                </ul>
+                <p class="mt-2">Think of a process as a house, and threads as the people living inside sharing the kitchen and living room!</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Input Area -->
+    <footer class="p-4 bg-surface border-t-2 border-text border-dashed max-w-4xl mx-auto w-full">
+        <form class="flex gap-2" id="chatForm">
+            <input type="text" class="doodle-input flex-grow" placeholder="Ask a question..." required>
+            <button type="submit" class="doodle-button text-white">Send</button>
+        </form>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            if (!token) window.location.href = 'login.html';
+
+            // Fetch courses to populate dropdown
+            try {
+                const res = await fetch('http://localhost:8000/api/courses/');
+                if (res.ok) {
+                    const courses = await res.json();
+                    const select = document.getElementById('courseContext');
+                    courses.forEach(c => {
+                        const opt = document.createElement('option');
+                        opt.value = c.id;
+                        opt.textContent = c.code;
+                        select.appendChild(opt);
+                    });
+                }
+            } catch(e) {
+                console.error("Failed to fetch courses for context", e);
+            }
+        });
+
+        document.getElementById('chatForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const input = e.target.querySelector('input');
+            const userText = input.value.trim();
+            const courseId = document.getElementById('courseContext').value;
+            
+            if (userText) {
+                const main = document.querySelector('main');
+                const html = `
+                    <div class="flex items-start gap-4 w-full flex-row-reverse mt-4 animate-fade-in">
+                        <div class="w-10 h-10 rounded-full bg-secondary flex-shrink-0 border-2 border-text flex items-center justify-center font-bold text-white">Me</div>
+                        <div class="doodle-border p-4 bg-blue-50 max-w-[80%]">
+                            <p>${userText}</p>
+                        </div>
+                    </div>
+                `;
+                main.insertAdjacentHTML('beforeend', html);
+                input.value = '';
+                main.scrollTop = main.scrollHeight;
+                
+                // Add loading indicator
+                const loaderId = 'loader-' + Date.now();
+                const loadingHtml = `
+                <div id="${loaderId}" class="flex items-start gap-4 w-full mt-4">
+                    <div class="w-10 h-10 rounded-full bg-primary flex-shrink-0 border-2 border-text flex items-center justify-center font-bold text-white">AI</div>
+                    <div class="doodle-border p-4 bg-surface max-w-[80%] text-gray-500 italic">
+                        Thinking...
+                    </div>
+                </div>`;
+                main.insertAdjacentHTML('beforeend', loadingHtml);
+                main.scrollTop = main.scrollHeight;
+
+                try {
+                    const token = localStorage.getItem('token');
+                    const payload = {
+                        content: userText,
+                        course_id: courseId ? parseInt(courseId) : null
+                    };
+                    
+                    const res = await fetch('http://localhost:8000/api/ai/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    document.getElementById(loaderId).remove();
+                    
+                    if (res.ok) {
+                        const data = await res.json();
+                        const aiHtml = `
+                        <div class="flex items-start gap-4 w-full mt-4">
+                            <div class="w-10 h-10 rounded-full bg-primary flex-shrink-0 border-2 border-text flex items-center justify-center font-bold text-white">AI</div>
+                            <div class="doodle-border p-4 bg-surface max-w-[80%] whitespace-pre-wrap">
+                                ${data.content}
+                            </div>
+                        </div>
+                        `;
+                        main.insertAdjacentHTML('beforeend', aiHtml);
+                    } else {
+                        const err = await res.json();
+                        alert(err.detail || "Error communicating with AI");
+                    }
+                } catch (error) {
+                    console.error("AI chat error", error);
+                    document.getElementById(loaderId)?.remove();
+                    alert("Failed to connect to the backend.");
+                }
+                
+                main.scrollTop = main.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>

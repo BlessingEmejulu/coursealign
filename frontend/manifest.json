@@ -1,0 +1,21 @@
+{
+  "name": "CourseAlign",
+  "short_name": "CourseAlign",
+  "description": "AI-Powered Course Outline Management and Learning Support System for COOU.",
+  "start_url": "/pages/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#49B6E5",
+  "icons": [
+    {
+      "src": "/assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

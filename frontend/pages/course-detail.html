@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - CourseAlign</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { primary: '#49B6E5', secondary: '#263D5B', success: '#16A34A', warning: '#D97706', surface: '#FFFFFF', text: '#111827' } } }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col text-text">
+
+    <!-- Header -->
+    <header class="w-full p-4 border-b-2 border-text border-dashed bg-surface flex justify-between items-center sticky top-0 z-10">
+        <div class="flex items-center gap-4">
+            <a href="courses.html" class="doodle-button bg-gray-100 px-3 py-1">Back</a>
+            <h1 class="text-xl font-bold text-secondary hidden sm:block">Course Details</h1>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-4">
+            <button class="doodle-button bg-primary text-text flex items-center gap-2" title="Share Course Outline">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                <span class="hidden sm:inline">Share</span>
+            </button>
+            <button id="bookmark-btn" class="doodle-button bg-warning text-white flex items-center gap-2" title="Bookmark Course">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                <span class="hidden sm:inline">Bookmark</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-5xl mx-auto p-4 md:p-8">
+        
+        <div class="doodle-border bg-surface p-6 md:p-10 mb-8">
+            <div class="flex items-center gap-4 mb-4">
+                <span id="course-code" class="text-xl font-bold px-4 py-2 bg-primary text-text border-2 border-text doodle-border shadow-none">...</span>
+                <span id="course-level-units" class="text-gray-500 font-bold">...</span>
+            </div>
+            <h1 id="course-title" class="text-4xl font-bold mb-4 text-secondary">Loading...</h1>
+            <p id="course-description" class="text-lg text-gray-700">Loading description...</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap gap-4 mb-8">
+            <a href="ai-tutor.html" class="doodle-button bg-primary text-text flex items-center gap-2">
+                Ask AI Tutor
+            </a>
+            <a href="quiz.html" class="doodle-button bg-success text-white flex items-center gap-2">
+                Take Practice Quiz
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Left Column: Outline -->
+            <div class="md:col-span-2 space-y-6">
+                
+                <section class="doodle-border p-6 bg-surface">
+                    <h2 class="text-2xl font-bold mb-4 text-secondary border-b-2 border-dashed pb-2 border-gray-300">Learning Objectives</h2>
+                    <ul id="learning-objectives-list" class="list-disc pl-5 space-y-2">
+                        <li>Loading learning objectives...</li>
+                    </ul>
+                </section>
+
+                <section class="doodle-border p-6 bg-surface">
+                    <h2 class="text-2xl font-bold mb-4 text-secondary border-b-2 border-dashed pb-2 border-gray-300">Course Outline</h2>
+                    <ul id="course-outline-list" class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li>Loading course outline...</li>
+                    </ul>
+                </section>
+
+            </div>
+
+            <!-- Right Column: Resources & Info -->
+            <div class="space-y-6">
+                
+                <div class="doodle-border p-6 bg-blue-50">
+                    <h3 class="font-bold text-lg mb-2 text-secondary">Course Info</h3>
+                    <p><strong>Lecturer:</strong> <span id="course-lecturer">Loading...</span></p>
+                    <p><strong>Semester:</strong> <span id="course-semester">Loading...</span></p>
+                </div>
+
+                <div class="doodle-border p-6 bg-surface">
+                    <h3 class="font-bold text-lg mb-4 text-secondary">Resources & Materials</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="flex items-center gap-2 text-primary hover:underline">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                Lecture Slides Wk1.pdf
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center gap-2 text-primary hover:underline">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                                Required Textbook Link
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseCode = urlParams.get('code');
+
+            if (!courseCode) {
+                document.getElementById('course-title').innerText = "Course Not Found";
+                document.getElementById('course-description').innerText = "No course code provided in the URL.";
+                return;
+            }
+
+            try {
+                const token = localStorage.getItem('token');
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+
+                const response = await fetch(`http://localhost:8000/api/courses/${courseCode}`, { headers });
+                
+                if (response.ok) {
+                    const course = await response.json();
+                    
+                    document.getElementById('course-code').innerText = course.code;
+                    document.getElementById('course-level-units').innerText = `${course.credit_unit} Units | ${course.level} Level`;
+                    document.getElementById('course-title').innerText = course.title;
+                    document.getElementById('course-description').innerText = course.description || 'No description available.';
+                    document.getElementById('course-lecturer').innerText = course.lecturer_name || 'TBA';
+                    document.getElementById('course-semester').innerText = course.semester || 'TBA';
+
+                    // Parse description for outline and learning objectives
+                    const desc = course.description || '';
+                    let outlineText = desc;
+                    let objectivesText = `Understand the core concepts of ${course.title}.`;
+                    
+                    if (desc.includes("The aim is to")) {
+                        const parts = desc.split("The aim is to");
+                        outlineText = parts[0].trim();
+                        objectivesText = "To " + parts[1].trim();
+                    }
+
+                    if (outlineText.includes(',') && !outlineText.includes('\n')) {
+                        const items = outlineText.split(',').map(i => i.trim()).filter(i => i);
+                        document.getElementById('course-outline-list').innerHTML = items.map(item => `<li>${item}</li>`).join('');
+                    } else if (outlineText) {
+                        document.getElementById('course-outline-list').innerHTML = `<li>${outlineText}</li>`;
+                    } else {
+                        document.getElementById('course-outline-list').innerHTML = `<li>No outline available.</li>`;
+                    }
+
+                    document.getElementById('learning-objectives-list').innerHTML = `<li>${objectivesText}</li>`;
+                    
+                    // Bookmark logic
+                    const bookmarkBtn = document.getElementById('bookmark-btn');
+                    bookmarkBtn.setAttribute('data-course-id', course.id);
+                    bookmarkBtn.addEventListener('click', async () => {
+                        try {
+                            const token = localStorage.getItem('token');
+                            if (!token) {
+                                alert('Please login to bookmark courses.');
+                                return;
+                            }
+                            const headers = { 
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            };
+                            const res = await fetch('http://localhost:8000/api/bookmarks/', {
+                                method: 'POST',
+                                headers,
+                                body: JSON.stringify({ course_id: course.id })
+                            });
+                            if (res.ok) {
+                                alert('Course bookmarked successfully!');
+                                bookmarkBtn.querySelector('svg').classList.add('fill-current');
+                            } else {
+                                const errData = await res.json();
+                                alert(errData.detail || 'Failed to bookmark course.');
+                            }
+                        } catch (err) {
+                            console.error('Error bookmarking:', err);
+                            alert('An error occurred while bookmarking.');
+                        }
+                    });
+                } else {
+                    document.getElementById('course-title').innerText = "Course Not Found";
+                    document.getElementById('course-description').innerText = "Could not find the requested course.";
+                    console.error('Failed to fetch course details', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching course:', error);
+                document.getElementById('course-title').innerText = "Error Loading Course";
+                document.getElementById('course-description').innerText = "Failed to communicate with the server.";
+            }
+        });
+    </script>
+</body>
+</html>
