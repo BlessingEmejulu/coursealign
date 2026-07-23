@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <div id="${loaderId}" class="flex items-start gap-4 w-full mt-4">
                     <div class="w-10 h-10 rounded-full bg-primary flex-shrink-0 border-2 border-text flex items-center justify-center font-bold text-white">AI</div>
                     <div class="doodle-border p-4 bg-surface max-w-[80%] text-gray-500 italic">
-                        Thinking...
+                        Loading AI Model (this takes up to 30 seconds for the first message, please DO NOT refresh the page)...
                     </div>
                 </div>`;
                 main.insertAdjacentHTML('beforeend', loadingHtml);
@@ -72,11 +72,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     
                     if (res.ok) {
                         const data = await res.json();
+                        const parsedContent = typeof marked !== 'undefined' ? marked.parse(data.content) : data.content;
                         const aiHtml = `
                         <div class="flex items-start gap-4 w-full mt-4">
                             <div class="w-10 h-10 rounded-full bg-primary flex-shrink-0 border-2 border-text flex items-center justify-center font-bold text-white">AI</div>
-                            <div class="doodle-border p-4 bg-surface max-w-[80%] whitespace-pre-wrap">
-                                ${data.content}
+                            <div class="doodle-border p-4 bg-surface max-w-[80%] prose prose-blue overflow-x-auto">
+                                ${parsedContent}
                             </div>
                         </div>
                         `;

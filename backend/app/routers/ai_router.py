@@ -9,6 +9,7 @@ router = APIRouter(prefix="/api/ai", tags=["ai"])
 
 @router.post("/chat", response_model=ChatMessageResponse)
 def chat_with_tutor(message: ChatMessageCreate, current_user: dict = Depends(get_current_active_user), conn: sqlite3.Connection = Depends(get_db)):
+    print(f"DEBUG: Received chat request from user {current_user['id']} with message: {message.content}")
     cursor = conn.cursor()
     context = "General Computer Science topics."
     

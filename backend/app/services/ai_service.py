@@ -6,23 +6,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
-OLLAMA_CHAT_URL = os.getenv("OLLAMA_CHAT_URL", "http://localhost:11434/api/chat")
-MODEL_NAME = "gemma:2b"
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://ollama:11434/api/generate")
+OLLAMA_CHAT_URL = os.getenv("OLLAMA_CHAT_URL", "http://ollama:11434/api/chat")
+MODEL_NAME = "gemma2:2b"
 
 def generate_ai_response(prompt: str, context: str = "") -> str:
     """
-    Generates a response using local Ollama model (Gemma) and E2B for code execution.
+    Generates a response using local Ollama model (Gemma).
     """
     system_instruction = (
         "You are the CourseAlign AI Tutor, an expert assistant for Computer Science students at "
-        "Chukwuemeka Odumegwu Ojukwu University (COOU). Be concise, helpful, and academically rigorous. "
-        "If the user asks you to execute Python code, calculate something, or run an algorithm, you should "
-        "output the Python code inside a markdown block like this:\n"
-        "```python\n"
-        "print('Hello World')\n"
-        "```\n"
-        "I will automatically execute it for you and provide the output back to the user."
+        "Chukwuemeka Odumegwu Ojukwu University (COOU). Be concise, helpful, and academically rigorous."
     )
     if context:
         system_instruction += f"\nHere is the relevant course context:\n{context}"
@@ -43,17 +37,6 @@ def generate_ai_response(prompt: str, context: str = "") -> str:
         response.raise_for_status()
         data = response.json()
         ai_message = data.get("message", {}).get("content", "Error parsing response.")
-        
-        # Check if AI outputted any python code
-        python_blocks = re.findall(r"```python\n(.*?)\n```", ai_message, re.DOTALL)
-        
-        if python_blocks:
-            from app.services.local_sandbox import run_local_code
-            ai_message += "\n\n**Executing Local Code Sandbox...**\n"
-            for code in python_blocks:
-                output = run_local_code(code)
-                ai_message += f"\n```text\n{output}\n```\n"
-            
         return ai_message
     except Exception as e:
         return f"An error occurred while communicating with the AI: {str(e)}"

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="refresh" content="0; url=/pages/index.html" />
-    <script>
-        window.location.replace("/pages/index.html");
-    </script>
+import os
+import glob
+import re
 
+cdn_block = """
     <!-- Tailwind CSS (Play CDN for Vanilla HTML/JS setup) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,8 +17,24 @@
             }
         }
     </script>
-</head>
-<body>
-    <p>Redirecting to <a href="/pages/index.html">CourseAlign</a>...</p>
-</body>
-</html>
+"""
+
+pages_dir = r"c:\Users\USER\Desktop\coursealign\frontend\pages"
+html_files = glob.glob(os.path.join(pages_dir, "*.html"))
+root_index = r"c:\Users\USER\Desktop\coursealign\frontend\index.html"
+if os.path.exists(root_index):
+    html_files.append(root_index)
+
+for filepath in html_files:
+    with open(filepath, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    # Only add if not already present
+    if "cdn.tailwindcss.com" not in content:
+        # Insert right before </head>
+        content = content.replace("</head>", cdn_block + "</head>")
+
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(content)
+
+print("Tailwind CDN restored successfully to all HTML files.")

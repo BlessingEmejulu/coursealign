@@ -13,8 +13,6 @@ services:
       - OLLAMA_URL=http://ollama:11434/api/generate
       - OLLAMA_CHAT_URL=http://ollama:11434/api/chat
       - E2B_API_KEY=${E2B_API_KEY:-}
-    depends_on:
-      - ollama
 
   frontend:
     build:
@@ -27,17 +25,10 @@ services:
 
   ollama:
     image: ollama/ollama:latest
-    ports:
-      - "11434:11434"
     volumes:
-      - ollama_data:/root/.ollama
-    entrypoint: >
-      sh -c "
-      ollama serve &
-      sleep 10 &&
-      ollama run gemma:2b &&
-      wait
-      "
+      - ~/.ollama:/root/.ollama
+    deploy:
+      resources:
+        limits:
+          memory: 4G
 
-volumes:
-  ollama_data:

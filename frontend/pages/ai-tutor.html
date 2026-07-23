@@ -8,6 +8,22 @@
     
     
     <script src="../js/config.js"></script>
+
+    <!-- Tailwind CSS with Typography Plugin -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#49B6E5', secondary: '#263D5B', success: '#16A34A', warning: '#D97706', danger: '#DC2626', surface: '#FFFFFF', text: '#111827' },
+                    fontFamily: { sans: ['"Delius Swash Caps"', 'cursive'], mono: ['"JetBrains Mono"', 'monospace'] },
+                    animation: { 'bounce-slow': 'bounce 3s infinite', 'wiggle': 'wiggle 1s ease-in-out infinite' },
+                    keyframes: { wiggle: { '0%, 100%': { transform: 'rotate(-3deg)' }, '50%': { transform: 'rotate(3deg)' } } }
+                }
+            }
+        }
+    </script>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col h-screen text-text">
 
@@ -62,6 +78,6 @@
         </form>
     </footer>
 
-    <script src="../js/ai-tutor.js"></script>
+    <script src="../js/ai-tutor.js?v=2"></script>
 </body>
 </html>
