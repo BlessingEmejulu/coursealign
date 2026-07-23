@@ -8,6 +8,9 @@
     <!-- Custom CSS for Doodle Design System -->
     <link rel="stylesheet" href="../css/style.css">
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="../manifest.json">
+    
     <!-- Tailwind CSS (Play CDN for Vanilla HTML/JS setup) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -63,7 +66,7 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center doodle-border px-6 py-3 bg-surface">
             <div class="flex items-center gap-2">
                 <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                <span class="text-2xl font-bold text-secondary tracking-wide">CourseAlign</span>
+                <img src="../../assets/images/logo.png" alt="CourseAlign" class="h-10">
             </div>
             
             <div class="hidden md:flex gap-6 items-center font-bold text-gray-600">
@@ -295,5 +298,77 @@
         </div>
     </footer>
 
+    <!-- PWA Install Prompt Banner -->
+    <div id="pwa-install-banner" class="fixed bottom-0 left-0 w-full bg-surface border-t-4 border-primary p-4 shadow-lg hidden z-50 flex-col md:flex-row items-center justify-between gap-4 transition-transform transform translate-y-full">
+        <div class="flex items-center gap-4">
+            <div class="bg-primary text-white p-2 rounded-lg doodle-border">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"></path></svg>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg text-secondary">Install CourseAlign App</h3>
+                <p class="text-sm text-gray-600">Get faster access and offline features on your device!</p>
+            </div>
+        </div>
+        <div class="flex gap-2 w-full md:w-auto">
+            <button id="pwa-dismiss-btn" class="flex-1 md:flex-none doodle-button bg-gray-200 text-text px-4 py-2 text-sm">Not Now</button>
+            <button id="pwa-install-btn" class="flex-1 md:flex-none doodle-button bg-primary text-white px-4 py-2 text-sm font-bold">Install</button>
+        </div>
+    </div>
+
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('../sw.js')
+                    .then(registration => console.log('SW registered:', registration))
+                    .catch(error => console.error('SW registration failed:', error));
+            });
+        }
+
+        // PWA Install Prompt Logic
+        let deferredPrompt;
+        const installBanner = document.getElementById('pwa-install-banner');
+        const installBtn = document.getElementById('pwa-install-btn');
+        const dismissBtn = document.getElementById('pwa-dismiss-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+            
+            // Show the custom banner
+            installBanner.classList.remove('hidden');
+            // Small delay to allow the element to become visible before translating
+            setTimeout(() => {
+                installBanner.classList.remove('translate-y-full');
+            }, 10);
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                // Show the browser prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                // We've used the prompt, and can't use it again, throw it away
+                deferredPrompt = null;
+            }
+            // Hide the banner
+            installBanner.classList.add('translate-y-full');
+            setTimeout(() => installBanner.classList.add('hidden'), 300);
+        });
+
+        dismissBtn.addEventListener('click', () => {
+            // Hide the banner without installing
+            installBanner.classList.add('translate-y-full');
+            setTimeout(() => installBanner.classList.add('hidden'), 300);
+        });
+    </script>
 </body>
 </html>
