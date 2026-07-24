@@ -20,11 +20,21 @@ document.getElementById('resetForm').addEventListener('submit', async (e) => {
                 });
                 
                 if (response.ok) {
-                    alert('Password successfully reset! You can now login with your new password.');
-                    window.location.href = 'login.html';
+                    if (window.showToast) {
+                        window.showToast('Password successfully reset! Redirecting to login...', 'success');
+                    } else {
+                        alert('Password successfully reset! You can now login with your new password.');
+                    }
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
                 } else {
                     const errorData = await response.json();
-                    alert(errorData.detail || 'Failed to reset password. Please check your details.');
+                    if (window.showToast) {
+                        window.showToast(errorData.detail || 'Failed to reset password. Please check your details.', 'error');
+                    } else {
+                        alert(errorData.detail || 'Failed to reset password. Please check your details.');
+                    }
                     btn.innerText = originalText;
                     btn.disabled = false;
                 }
