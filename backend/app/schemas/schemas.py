@@ -109,3 +109,20 @@ class CourseAssignUpdate(BaseModel):
     level: Optional[str] = None
     semester: Optional[str] = None
     description: Optional[str] = None
+
+# --- Quiz Schemas ---
+class QuizGenerateRequest(BaseModel):
+    course_code: str
+    difficulty: str = "Medium"
+    num_questions: int = 5
+    question_types: List[str] = ["mcq"]
+
+class QuizFeedbackRequest(BaseModel):
+    course_code: str
+    score: int
+    total: int
+    incorrect_topics: List[str]
+
+class QuizFeedbackResponse(BaseModel):
+    feedback: str
+    suggested_topics: List[str]

@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     document.getElementById('course-lecturer').innerText = course.lecturer_name || 'TBA';
                     document.getElementById('course-semester').innerText = course.semester || 'TBA';
 
+                    // Update action links with the course code
+                    document.getElementById('ai-tutor-btn').href = `ai-tutor.html?code=${course.code}`;
+                    document.getElementById('practice-quiz-btn').href = `quiz.html?code=${course.code}`;
+
                     // Fetch Outline
                     try {
                         const outlineRes = await fetch(CONFIG.API_BASE_URL + `/api/courses/${course.id}/outline`);
