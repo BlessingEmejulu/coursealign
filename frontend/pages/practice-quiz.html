@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Quizzes - CourseAlign</title>
+    <link rel="stylesheet" href="../css/style.css">
+    
+    
+    <script src="../js/config.js"></script>
+
+    <!-- Tailwind CSS (Play CDN for Vanilla HTML/JS setup) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#49B6E5', secondary: '#263D5B', success: '#16A34A', warning: '#D97706', danger: '#DC2626', surface: '#FFFFFF', text: '#111827' },
+                    fontFamily: { sans: ['"Delius Swash Caps"', 'cursive'], mono: ['"JetBrains Mono"', 'monospace'] },
+                    animation: { 'bounce-slow': 'bounce 3s infinite', 'wiggle': 'wiggle 1s ease-in-out infinite' },
+                    keyframes: { wiggle: { '0%, 100%': { transform: 'rotate(-3deg)' }, '50%': { transform: 'rotate(3deg)' } } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex text-text">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-surface h-screen sticky top-0 border-r-2 border-text border-dashed p-6 flex flex-col hidden md:flex">
+        <img src="../assets/images/logo.png" alt="CourseAlign" class="h-20 mx-auto mb-10">
+        
+        <nav class="flex-grow space-y-4">
+            <a href="dashboard.html" class="block p-3 doodle-border hover:bg-gray-100 transition">Dashboard</a>
+            <a href="courses.html" class="block p-3 doodle-border hover:bg-gray-100 transition">Browse Courses</a>
+            <a href="bookmarks.html" class="block p-3 doodle-border hover:bg-gray-100 transition">Bookmarks</a>
+            <a href="ai-tutor.html" class="block p-3 doodle-border hover:bg-gray-100 transition">AI Tutor</a>
+            <a href="practice-quiz.html" class="block p-3 doodle-border bg-primary text-text font-bold">Practice Quiz</a>
+        </nav>
+        
+        <div class="mt-auto">
+            <a href="profile.html" class="block p-3 text-center hover:bg-gray-100 rounded mb-2">My Profile</a>
+            <button onclick="logout()" class="w-full text-center text-red-600 font-bold hover:underline">Logout</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="w-full p-4 border-b-2 border-text border-dashed bg-surface flex justify-between items-center sticky top-0 z-10 md:hidden">
+            <div class="flex items-center gap-4">
+                <h1 class="text-xl font-bold text-secondary">CourseAlign</h1>
+            </div>
+            <button class="doodle-button px-4 py-2" onclick="history.back()">Back</button>
+        </header>
+
+        <div class="p-4 md:p-8 flex-grow w-full max-w-6xl mx-auto">
+            <div class="mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-secondary mb-2">Practice Quizzes</h1>
+                <p class="text-gray-600 text-lg">Select a course to configure and start your AI-generated practice quiz.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                <input type="text" id="searchInput" class="doodle-input md:w-1/2 flex-grow" placeholder="Search courses by code or title...">
+                <div class="flex w-full md:w-1/2 gap-4">
+                    <select id="levelFilter" class="doodle-input flex-1 cursor-pointer">
+                        <option value="">All Levels</option>
+                        <option value="100">100 Level</option>
+                        <option value="200">200 Level</option>
+                        <option value="300">300 Level</option>
+                        <option value="400">400 Level</option>
+                        <option value="500">500 Level</option>
+                    </select>
+                    <select id="semesterFilter" class="doodle-input flex-1 cursor-pointer">
+                        <option value="">All Semesters</option>
+                        <option value="1st">1st Semester</option>
+                        <option value="2nd">2nd Semester</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="noCoursesMsg" class="hidden text-center py-10">
+                <h3 class="text-2xl font-bold text-gray-500 mb-4">No courses found matching your selected filters.</h3>
+                <button id="clearFiltersBtn" class="doodle-button bg-gray-200">Clear Filters</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="courseGrid">
+                <!-- Courses will be dynamically injected here -->
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/practice-quiz.js"></script>
+    <script>
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
