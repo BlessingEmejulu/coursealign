@@ -82,6 +82,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                         document.getElementById('course-resources-list').innerHTML = `<li>Failed to load resources.</li>`;
                     }
                     
+                    // Share logic
+                    const shareBtn = document.getElementById('share-btn');
+                    if (shareBtn) {
+                        shareBtn.addEventListener('click', async () => {
+                            try {
+                                await navigator.clipboard.writeText(window.location.href);
+                                if (window.showToast) {
+                                    window.showToast('Course link copied to clipboard!', 'success');
+                                } else {
+                                    alert('Course link copied to clipboard!');
+                                }
+                            } catch (err) {
+                                console.error('Failed to copy text: ', err);
+                                const input = document.createElement('input');
+                                input.value = window.location.href;
+                                document.body.appendChild(input);
+                                input.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(input);
+                                if (window.showToast) {
+                                    window.showToast('Course link copied to clipboard!', 'success');
+                                } else {
+                                    alert('Course link copied to clipboard!');
+                                }
+                            }
+                        });
+                    }
+                    
                     // Bookmark logic
                     const bookmarkBtn = document.getElementById('bookmark-btn');
                     bookmarkBtn.setAttribute('data-course-id', course.id);
