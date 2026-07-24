@@ -76,15 +76,15 @@
                 <div class="space-y-4">
                     <div class="flex justify-between items-center">
                         <span>Courses Studied</span>
-                        <span class="font-bold text-lg">4</span>
+                        <span class="font-bold text-lg" id="stat-courses">...</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <span>Quiz Average</span>
-                        <span class="font-bold text-lg text-success">85%</span>
+                        <span class="font-bold text-lg text-success" id="stat-quiz">...</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <span>AI Chats</span>
-                        <span class="font-bold text-lg">12</span>
+                        <span class="font-bold text-lg" id="stat-chats">...</span>
                     </div>
                 </div>
             </div>
@@ -96,24 +96,8 @@
                     <a href="courses.html" class="text-primary hover:underline font-bold text-sm">View All</a>
                 </div>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Course Card Mini -->
-                    <div class="doodle-border p-4 bg-gray-50 flex flex-col justify-between h-32">
-                        <div>
-                            <span class="text-xs font-bold px-2 py-1 bg-yellow-200 rounded-full mb-2 inline-block border border-black">CSC 401</span>
-                            <h4 class="font-bold truncate">Software Engineering</h4>
-                        </div>
-                        <a href="course-detail.html?code=CSC401" class="text-primary text-sm font-bold mt-2">View Outline &rarr;</a>
-                    </div>
-                    
-                    <!-- Course Card Mini -->
-                    <div class="doodle-border p-4 bg-gray-50 flex flex-col justify-between h-32">
-                        <div>
-                            <span class="text-xs font-bold px-2 py-1 bg-blue-200 rounded-full mb-2 inline-block border border-black">CSC 411</span>
-                            <h4 class="font-bold truncate">Artificial Intelligence</h4>
-                        </div>
-                        <a href="course-detail.html?code=CSC411" class="text-primary text-sm font-bold mt-2">View Outline &rarr;</a>
-                    </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="recent-courses-grid">
+                    <p class="text-gray-500 text-sm">Loading recent courses...</p>
                 </div>
             </div>
 

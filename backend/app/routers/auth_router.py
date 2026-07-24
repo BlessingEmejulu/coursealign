@@ -108,3 +108,64 @@ def update_user_me(user_update: UserUpdate, current_user: dict = Depends(get_cur
     updated_user = cursor.fetchone()
     
     return dict(updated_user)
+
+@router.get("/me/dashboard")
+def get_user_dashboard(current_user: dict = Depends(get_current_active_user), db: sqlite3.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    user_id = current_user['id']
+    
+    # 1. Courses Studied (Distinct courses bookmarked or attempted in quizzes)
+    cursor.execute('''
+        SELECT COUNT(DISTINCT course_id) FROM (
+            SELECT course_id FROM bookmarks WHERE user_id = ?
+            UNION
+            SELECT course_id FROM quiz_attempts WHERE user_id = ?
+            UNION
+            SELECT course_id FROM chat_sessions WHERE user_id = ?
+        )
+    ''', (user_id, user_id, user_id))
+    courses_studied = cursor.fetchone()[0] or 0
+    
+    # 2. Quiz Average
+    cursor.execute('''
+        SELECT SUM(score) as total_score, SUM(total_questions) as total_q 
+        FROM quiz_attempts WHERE user_id = ?
+    ''', (user_id,))
+    quiz_data = cursor.fetchone()
+    quiz_average = 0
+    if quiz_data and quiz_data['total_q']:
+        quiz_average = int(round((quiz_data['total_score'] / quiz_data['total_q']) * 100))
+        
+    # 3. AI Chats
+    cursor.execute('SELECT COUNT(id) FROM chat_sessions WHERE user_id = ?', (user_id,))
+    ai_chats = cursor.fetchone()[0] or 0
+    
+    # 4. Recent Courses
+    # Get courses the user bookmarked recently. If none, get global latest courses.
+    cursor.execute('''
+        SELECT c.id, c.code, c.title, c.level 
+        FROM courses c
+        JOIN bookmarks b ON c.id = b.course_id
+        WHERE b.user_id = ?
+        ORDER BY b.created_at DESC
+        LIMIT 2
+    ''', (user_id,))
+    recent_courses = [dict(row) for row in cursor.fetchall()]
+    
+    if not recent_courses:
+        cursor.execute('''
+            SELECT id, code, title, level 
+            FROM courses 
+            ORDER BY id DESC 
+            LIMIT 2
+        ''')
+        recent_courses = [dict(row) for row in cursor.fetchall()]
+
+    return {
+        "stats": {
+            "courses_studied": courses_studied,
+            "quiz_average": quiz_average,
+            "ai_chats": ai_chats
+        },
+        "recent_courses": recent_courses
+    }
