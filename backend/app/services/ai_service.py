@@ -52,6 +52,7 @@ def generate_quiz(course_context: str, difficulty: str = "Medium", num_questions
         f"Difficulty: {difficulty}\n"
         f"Question Types: {types_str}\n\n"
         "Return ONLY a valid JSON array of objects. Do not include any markdown backticks or explanation outside the JSON.\n"
+        "CRITICAL: You MUST use exact lowercase keys exactly as shown in the example below.\n"
         "Example Output Format:\n"
         "[\n"
         "  {\n"

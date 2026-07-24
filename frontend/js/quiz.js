@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 question: findVal(['question', 'text', 'prompt', 'q']),
                 answer: findVal(['answer', 'correctanswer', 'correct', 'a']),
                 options: findVal(['options', 'choices', 'answers', 'possibleanswers']),
-                explanation: findVal(['explanation', 'reason', 'feedback', 'rationale']),
+                explanation: findVal(['explanation', 'reason', 'feedback', 'rationale', 'description', 'details', 'info', 'context']),
                 type: findVal(['type', 'questiontype']),
                 topic: findVal(['topic', 'subject', 'category'])
             };
